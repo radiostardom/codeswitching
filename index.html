@@ -3258,7 +3258,7 @@
       let s = 0,
         t = 0;
       for (const [e, c] of Object.entries(ex)) {
-        s += c * (w[e] ? ? .3);
+        s += c * (w[e] ?? .3);
         t += c
       }
       return t > 0 ? s / t : .3
