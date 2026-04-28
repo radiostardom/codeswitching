@@ -6774,7 +6774,20 @@
         // bigger fonts, sized for the thermal printer rather than the screen.
         // After capture we strip the class so the on-screen receipt stays compact.
         rcpt.classList.add('print-capture');
-        // give the browser one frame to actually apply the new layout
+
+        // Pull the rcpt-wrap out of its scroll container temporarily so
+        // html2canvas can see the FULL height of the receipt — not just the
+        // visible viewport slice. Without this, anything scrolled off-screen
+        // captures as blank white, which is exactly the blank print bug.
+        const wrap = rcpt.closest('.rcpt-wrap');
+        const originalOverflow = wrap ? wrap.style.overflow : null;
+        const originalMaxHeight = wrap ? wrap.style.maxHeight : null;
+        if (wrap) {
+          wrap.style.overflow = 'visible';
+          wrap.style.maxHeight = 'none';
+        }
+
+        // Two frames so the browser fully reflows before html2canvas snapshots.
         await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
         let imageData;
@@ -6783,11 +6796,21 @@
             scale: 2,
             backgroundColor: '#ffffff',
             useCORS: true,
-            logging: false
+            logging: false,
+            // Capture full scrollable height, not just the visible window
+            windowWidth: rcpt.scrollWidth,
+            windowHeight: rcpt.scrollHeight,
+            scrollX: 0,
+            scrollY: 0
           });
           imageData = canvas.toDataURL('image/png');
         } finally {
+          // Restore the scroll container no matter what — even if capture throws
           rcpt.classList.remove('print-capture');
+          if (wrap) {
+            wrap.style.overflow = originalOverflow || '';
+            wrap.style.maxHeight = originalMaxHeight || '';
+          }
         }
 
         // POST to the local print server with a timeout so a hung server
