@@ -1,0 +1,13 @@
+{
+  "name": "wholeyou-print-server",
+  "version": "2.0.0",
+  "description": "Direct-USB print bridge for the Code-Switching kiosk (CUPS bypass)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "sharp": "^0.33.0",
+    "usb": "^2.11.0"
+  }
+}

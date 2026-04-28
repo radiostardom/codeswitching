@@ -1,0 +1,762 @@
+/* ═══════════════════════════════════════════════════════════════════
+   WHOLEYOU™ — V3 FLOW STYLES (calmer pass)
+   ═══════════════════════════════════════════════════════════════════
+   The brief: Onion-doing-corporate-SaaS. Make it feel cleaner for
+   the candidate, not louder. The satire lives in the copy and in
+   small surveillance tells (REC dot, mono labels, capture caption),
+   not in magazine-spread layouts.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --rule:        rgba(26,26,23,0.12);
+  --rule-2:      rgba(26,26,23,0.06);
+  --rule-strong: rgba(26,26,23,0.28);
+  --redline:     #c4322f;
+  --paper-tint:  #f6f4ee;
+  --ink-warm:    #2a2823;
+}
+
+/* keep recording-dot animation for the few places where it earns its keep */
+@keyframes v3RecPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 1 — LORE
+   ═════════════════════════════════════════════════════════════════
+   Calmer. No left rail, no scan grid. Photo bg + centered editorial
+   text the way a real corporate "About" reel would do it. */
+
+#p1 .lore-bg-photo {
+  opacity: 0.42;
+  filter: saturate(0.78) contrast(1.06);
+}
+
+/* badge — a single brand-blue mono kicker, centered */
+#p1 .lore-badge {
+  background: rgba(255,255,255,0.78) !important;
+  backdrop-filter: blur(6px) !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 999px !important;
+  padding: 0.5rem 1rem !important;
+  font: 500 11px/1 var(--font-mono) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--ink) !important;
+  margin-bottom: 1.6rem !important;
+}
+#p1 .lore-badge .smile { width: 12px !important; height: 12px !important; }
+
+/* body lines — sans serif, balanced.
+   Only touch lines that DON'T have inline styles (beats 0, 3). Beats
+   1 (founder), 2 (scripture), 4 (welcome) use inline sizes deliberately
+   and we let those win. */
+#p1 .lore-line:not([style]) {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-wrap: balance;
+  max-width: 28ch;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.4rem;
+}
+
+/* mono stat lines — sit underneath body, ghosted.
+   Same rule: only touch ones without inline styles. */
+#p1 .lore-stat:not([style]) {
+  font: 500 0.74rem/1.5 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-top: 1.4rem;
+  padding-left: 0;
+  border-left: 0;
+}
+
+/* CTA on beat 4 — match welcome screen */
+#p1 #lb4 .btn-primary {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 0.95rem 1.8rem !important;
+  font: 600 0.95rem/1 var(--font-sans) !important;
+  letter-spacing: 0 !important;
+  border: 0 !important;
+  box-shadow: 0 14px 30px -14px rgba(47,110,220,0.55) !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 2 — PUNCHLINE
+   ═════════════════════════════════════════════════════════════════
+   Calm and centered. Setup line is a quiet sans serif statement.
+   The drop is the punchline — sans, not too huge, with a brand-blue
+   line through "humans". No frame, no kicker, no left pull. */
+
+#p2 {
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+#p2 .punch-line {
+  font-family: var(--font-sans) !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(1.4rem, 2.4vw, 1.7rem) !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.015em !important;
+  color: var(--ink-2) !important;
+  position: static !important;
+  margin: 0 auto 1.4rem auto !important;
+  max-width: 30ch;
+  text-align: center !important;
+}
+
+#p2 .punch-drop {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: clamp(2.4rem, 5vw, 3.4rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+  color: var(--ink) !important;
+  position: static !important;
+  margin: 0 auto !important;
+  max-width: 22ch !important;
+  text-align: center !important;
+  text-wrap: balance;
+  transform: none !important;
+}
+#p2 .punch-drop.in { animation: fadeUp 0.8s ease forwards; }
+
+#p2 .punch-continue {
+  position: static !important;
+  margin: 2.4rem auto 0 auto !important;
+  text-align: center !important;
+}
+#p2 .punch-continue .btn-primary {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 0.95rem 1.8rem !important;
+  font: 600 0.95rem/1 var(--font-sans) !important;
+  border: 0 !important;
+  box-shadow: 0 14px 30px -14px rgba(47,110,220,0.55) !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 3 — HOW IT WORKS
+   ═════════════════════════════════════════════════════════════════
+   Centered SaaS card, but tighter. Sans-serif headline (not italic
+   serif). Numbered steps stacked horizontally as in original. */
+
+#p3 .intro-card {
+  background: var(--paper-3) !important;
+  border: 1px solid var(--rule) !important;
+  box-shadow: 0 30px 60px -30px rgba(26,26,23,0.18) !important;
+  border-radius: 16px !important;
+  max-width: 720px !important;
+  width: min(720px, 92vw) !important;
+  margin: auto !important;
+  padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 4vw, 3.4rem) !important;
+  text-align: center !important;
+  display: block !important;
+}
+
+#p3 .intro-badge {
+  display: inline-block !important;
+  background: var(--brand-tint) !important;
+  border: 1px solid rgba(47,110,220,0.18) !important;
+  border-radius: 999px !important;
+  padding: 0.4rem 0.9rem !important;
+  font: 500 11px/1 var(--font-mono) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--brand) !important;
+  margin: 0 0 1.2rem 0 !important;
+}
+
+#p3 .intro-h {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.025em !important;
+  color: var(--ink) !important;
+  margin: 0 0 2rem 0 !important;
+  text-wrap: balance;
+}
+
+#p3 .intro-pillars {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1rem !important;
+  margin: 0 0 2rem 0 !important;
+}
+#p3 .intro-pillars .pillar {
+  flex: 1;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.2rem 0.8rem !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 12px !important;
+  background: var(--paper-tint) !important;
+  text-align: center !important;
+}
+#p3 .intro-pillars .pillar-icon {
+  width: 38px !important; height: 38px !important;
+  border: 1.5px solid var(--brand) !important;
+  background: transparent !important;
+  color: var(--brand) !important;
+  border-radius: 999px !important;
+  font: 600 1rem/1 var(--font-mono) !important;
+  display: grid !important; place-items: center;
+  margin: 0 0 0.4rem 0 !important;
+}
+#p3 .intro-pillars .pillar-title {
+  font: 600 1rem/1.25 var(--font-sans) !important;
+  letter-spacing: -0.015em !important;
+  color: var(--ink) !important;
+  margin: 0 !important;
+  text-wrap: balance;
+}
+#p3 .intro-pillars .pillar-sub {
+  font: 400 0.85rem/1.45 var(--font-sans) !important;
+  color: var(--ink-2) !important;
+  margin: 0 !important;
+  text-wrap: pretty;
+}
+
+#p3 .intro-card > .btn-primary {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 0.95rem 1.8rem !important;
+  font: 600 0.95rem/1 var(--font-sans) !important;
+  margin: 0 0 1.4rem 0 !important;
+  box-shadow: 0 14px 30px -14px rgba(47,110,220,0.55) !important;
+}
+
+#p3 .intro-certs {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 1.4rem !important;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem !important;
+  margin-top: 0 !important;
+}
+#p3 .intro-certs .cert {
+  font: 500 10px/1 var(--font-mono) !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--ink-2) !important;
+}
+#p3 .intro-certs .cert-dot {
+  background: var(--brand) !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 4 — INPUT (intake form)
+   ═════════════════════════════════════════════════════════════════
+   Calmer SaaS form. No mono header strip. Sans-serif headline
+   (not italic serif). Underline inputs stay (they're nice). */
+
+#p4 .in-card {
+  background: var(--paper-3) !important;
+  border: 1px solid var(--rule) !important;
+  box-shadow: 0 30px 60px -30px rgba(26,26,23,0.18) !important;
+  border-radius: 16px !important;
+  width: min(580px, 92vw) !important;
+  padding: clamp(2rem, 3.5vw, 2.8rem) clamp(2rem, 3.5vw, 2.8rem) !important;
+}
+
+#p4 .in-greet {
+  font: 500 0.86rem/1 var(--font-sans) !important;
+  letter-spacing: -0.005em !important;
+  text-transform: none !important;
+  color: var(--brand) !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin-bottom: 0.5rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+}
+#p4 .in-greet .smile { width: 16px !important; height: 16px !important; }
+
+#p4 .in-card h2 {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.7rem, 3vw, 2rem) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.025em !important;
+  color: var(--ink) !important;
+  margin: 0 0 0.4rem 0 !important;
+}
+
+#p4 .in-sub {
+  font: 400 0.95rem/1.45 var(--font-sans) !important;
+  color: var(--ink-2) !important;
+  margin-bottom: 1.6rem !important;
+}
+
+#p4 .step-dots { gap: 6px !important; margin-bottom: 0.9rem !important; }
+#p4 .step-dot {
+  width: 24px !important; height: 3px !important;
+  border-radius: 999px !important;
+  background: var(--rule-2) !important;
+}
+#p4 .step-dot.active { background: var(--brand) !important; }
+
+#p4 .fg label {
+  font: 500 0.78rem/1 var(--font-sans) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--ink-2) !important;
+}
+
+#p4 input[type="text"] {
+  border: 0 !important;
+  border-bottom: 1.5px solid var(--rule) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0.5rem 0 !important;
+  font: 500 1.1rem/1.3 var(--font-sans) !important;
+  color: var(--ink) !important;
+  transition: border-color .2s ease;
+}
+#p4 input[type="text"]:focus {
+  outline: none;
+  border-bottom-color: var(--brand) !important;
+}
+#p4 input[type="text"]::placeholder {
+  color: var(--ink-3) !important;
+}
+
+#p4 .pill-group { gap: 0.45rem !important; }
+#p4 .pill-opt {
+  border: 1px solid var(--rule) !important;
+  border-radius: 999px !important;
+  padding: 0.45rem 1rem !important;
+  background: var(--paper-3) !important;
+  font: 500 0.88rem/1 var(--font-sans) !important;
+  color: var(--ink) !important;
+  transition: all .15s ease;
+}
+#p4 .pill-opt:hover {
+  border-color: var(--brand) !important;
+  color: var(--brand) !important;
+}
+#p4 .pill-opt.selected {
+  background: var(--brand) !important;
+  border-color: var(--brand) !important;
+  color: #fff !important;
+}
+
+#p4 .consent-row {
+  border: 1px solid var(--rule) !important;
+  background: var(--paper-tint) !important;
+  border-radius: 10px !important;
+  padding: 0.85rem 1rem !important;
+  margin-top: 1.4rem !important;
+}
+#p4 .consent-text {
+  font: 400 0.78rem/1.5 var(--font-sans) !important;
+  color: var(--ink-2) !important;
+}
+#p4 .consent-text a { color: var(--brand) !important; text-decoration: underline; }
+
+#p4 .in-go {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 1rem 1.6rem !important;
+  font: 600 1rem/1 var(--font-sans) !important;
+  letter-spacing: 0 !important;
+  box-shadow: 0 16px 32px -14px rgba(47,110,220,0.55) !important;
+  margin-top: 1.6rem !important;
+}
+#p4 .in-go:hover { transform: translateY(-1px); }
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 5 — SCREENER
+   ═════════════════════════════════════════════════════════════════
+   Centered, sans-serif question (not italic serif). Keep the
+   discrete REC pill in the corner — that's where the satire lives. */
+
+#p5 .tf-wrap {
+  width: min(640px, 92vw) !important;
+  text-align: center !important;
+  position: relative;
+}
+
+#p5 .tf-progress {
+  margin-bottom: 2.4rem !important;
+  gap: 4px !important;
+}
+#p5 .tf-bar {
+  height: 3px !important;
+  background: var(--rule) !important;
+  border-radius: 999px !important;
+}
+#p5 .tf-bar.active { background: var(--brand) !important; opacity: 1 !important; }
+#p5 .tf-bar.done   { background: var(--brand) !important; opacity: 1 !important; }
+
+/* a discreet REC chip top-right of the screener */
+#p5 .tf-wrap::after {
+  content: "● REC";
+  position: absolute;
+  top: -6px; right: 0;
+  font: 600 9px/1 var(--font-mono);
+  letter-spacing: 0.22em;
+  color: var(--redline);
+  animation: v3RecPulse 1.4s ease-in-out infinite;
+}
+
+#p5 .tf-q {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.7rem, 3.2vw, 2.2rem) !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.025em !important;
+  color: var(--ink) !important;
+  text-align: center !important;
+  margin-bottom: 0.5rem !important;
+  text-wrap: balance;
+}
+
+#p5 .tf-hint {
+  font: 400 0.9rem/1.4 var(--font-sans) !important;
+  color: var(--ink-2) !important;
+  font-style: normal !important;
+  margin-bottom: 1.6rem !important;
+}
+
+#p5 .tf-options { gap: 0.5rem !important; }
+#p5 .tf-opt {
+  text-align: left !important;
+  padding: 0.95rem 1.1rem !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 12px !important;
+  background: var(--paper-3) !important;
+  font: 500 1rem/1.35 var(--font-sans) !important;
+  letter-spacing: -0.01em !important;
+  color: var(--ink) !important;
+  transition: all .15s ease;
+}
+#p5 .tf-opt:hover {
+  border-color: var(--brand) !important;
+  background: var(--brand-tint) !important;
+  color: var(--ink) !important;
+}
+#p5 .tf-opt.selected {
+  background: var(--brand) !important;
+  border-color: var(--brand) !important;
+  color: #fff !important;
+}
+#p5 .tf-key {
+  font: 600 11px/1 var(--font-mono) !important;
+  letter-spacing: 0.06em !important;
+  border: 1px solid var(--rule) !important;
+  width: 22px; height: 22px;
+  display: inline-grid !important; place-items: center;
+  border-radius: 4px !important;
+  margin-right: 0.85rem !important;
+  background: var(--paper-tint) !important;
+  color: var(--ink-2) !important;
+}
+#p5 .tf-opt:hover .tf-key {
+  border-color: var(--brand) !important;
+  color: var(--brand) !important;
+}
+#p5 .tf-opt.selected .tf-key {
+  background: rgba(255,255,255,0.18) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+#p5 .tf-counter {
+  font: 500 11px/1 var(--font-mono) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--ink-3) !important;
+  margin-top: 2.2rem !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 6 — EVALUATION (scan)
+   ═════════════════════════════════════════════════════════════════
+   Subtle polish only. Light side cards, tiny REC dot in capture. */
+
+#p6 .eval-row {
+  gap: 1.4rem !important;
+}
+
+#p6 .vw {
+  background: #0c0e12 !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  position: relative;
+  border-radius: 14px !important;
+  overflow: hidden;
+}
+#p6 .vw::after {
+  content: "● REC";
+  position: absolute; top: 12px; right: 14px;
+  font: 600 9px/1 var(--font-mono);
+  letter-spacing: 0.22em;
+  color: var(--redline);
+  animation: v3RecPulse 1.4s ease-in-out infinite;
+  z-index: 4;
+}
+
+#p6 .cn { border-color: var(--brand) !important; }
+
+#p6 .sc {
+  background: var(--paper-3) !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 12px !important;
+  backdrop-filter: none !important;
+  padding: 1rem 1.2rem !important;
+}
+#p6 .sl {
+  font: 500 10px/1 var(--font-mono) !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--brand) !important;
+  margin-bottom: 0.6rem !important;
+}
+#p6 .bn {
+  font: 600 1.85rem/1 var(--font-sans) !important;
+  color: var(--ink) !important;
+  letter-spacing: -0.03em !important;
+}
+#p6 .gv {
+  font: 600 1.3rem/1.1 var(--font-sans) !important;
+  color: var(--ink) !important;
+}
+#p6 .smm {
+  font: 400 0.74rem/1 var(--font-mono) !important;
+  letter-spacing: 0.06em !important;
+  color: var(--ink-3) !important;
+  margin-top: 0.2rem;
+}
+#p6 .fn {
+  font: 700 3rem/1 var(--font-sans) !important;
+  color: var(--brand) !important;
+  letter-spacing: -0.04em !important;
+}
+#p6 .vp2 {
+  font: 500 10px/1 var(--font-mono) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--ink-2) !important;
+}
+#p6 .er { gap: 0.6rem !important; }
+#p6 .erl, #p6 .erp {
+  font: 500 0.78rem/1 var(--font-mono) !important;
+  letter-spacing: 0.04em !important;
+  color: var(--ink-2) !important;
+}
+#p6 .erb {
+  background: var(--rule-2) !important;
+  height: 4px !important;
+  border-radius: 2px !important;
+}
+#p6 .erf {
+  background: var(--brand) !important;
+  height: 100% !important;
+  border-radius: 2px !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 7 — RESULTS
+   ═════════════════════════════════════════════════════════════════
+   Clean two-column dossier. Big sans-serif alignment number (not
+   italic serif). Calm cards. */
+
+#p7 .res-row {
+  gap: 1.4rem !important;
+  width: min(1000px, 95vw) !important;
+}
+
+#p7 .shc {
+  background: var(--paper-3) !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 14px !important;
+  backdrop-filter: none !important;
+  padding: 1rem !important;
+}
+#p7 .shf {
+  background: #0c0e12 !important;
+  border-radius: 8px !important;
+  position: relative;
+}
+#p7 .shc .cn { border-color: var(--brand) !important; }
+#p7 .shl {
+  font: 500 10px/1.5 var(--font-mono) !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--ink-3) !important;
+  margin-top: 0.7rem !important;
+}
+
+#p7 .rp { gap: 0.9rem !important; }
+#p7 .sc {
+  background: var(--paper-3) !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 12px !important;
+  backdrop-filter: none !important;
+  padding: 1.1rem 1.3rem !important;
+}
+#p7 .sl {
+  font: 500 10px/1 var(--font-mono) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--brand) !important;
+  margin-bottom: 0.5rem !important;
+}
+#p7 .fsc {
+  border: 1.5px solid var(--brand) !important;
+  background: linear-gradient(180deg, var(--brand-tint), transparent) !important;
+}
+#p7 .fsn {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 800 !important;
+  font-size: clamp(3.4rem, 6vw, 4.6rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.04em !important;
+  color: var(--brand) !important;
+}
+#p7 .vp2 {
+  font: 600 11px/1 var(--font-mono) !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--ink) !important;
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--paper-3);
+}
+#p7 .srow {
+  display: flex; justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--rule);
+  font: 500 0.86rem/1.3 var(--font-sans) !important;
+}
+#p7 .srow:last-child { border-bottom: 0; }
+#p7 .sk {
+  font: 500 10px/1.4 var(--font-mono) !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: var(--ink-2) !important;
+}
+#p7 .sv {
+  font: 500 0.92rem/1.3 var(--font-sans) !important;
+  color: var(--ink) !important;
+}
+#p7 .inf {
+  font: 400 0.95rem/1.55 var(--font-sans) !important;
+  color: var(--ink-warm) !important;
+}
+#p7 .action-btn {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 1rem 1.7rem !important;
+  font: 600 0.98rem/1 var(--font-sans) !important;
+  letter-spacing: 0 !important;
+  border: 0 !important;
+  margin-top: 0.4rem !important;
+  box-shadow: 0 16px 32px -14px rgba(47,110,220,0.55) !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 10 — FINAL SPLASH
+   ═════════════════════════════════════════════════════════════════
+   Reverted to OG: big serif-feeling Figtree 800 headline floods the
+   color full-bleed. No corner brackets, no white cutoff card —
+   the whole screen is the moment. Base CSS in index.html handles it. */
+
+/* (intentionally left empty — see .final-* styles in index.html) */
+
+/* ═════════════════════════════════════════════════════════════════
+   PHASE 11 — VIRTUAL RECEIPT
+   ═════════════════════════════════════════════════════════════════
+   Calm "printer offline" frame. Sans-serif title. */
+
+#p11 .virtual-rcpt-wrap {
+  width: min(720px, 94vw) !important;
+}
+#p11 .virtual-rcpt-header {
+  border: 1px solid var(--rule) !important;
+  background: var(--paper-tint) !important;
+  border-radius: 12px !important;
+  padding: 1.2rem 1.4rem !important;
+  text-align: center !important;
+}
+#p11 .virtual-rcpt-kicker {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4em;
+  font: 600 10px/1 var(--font-mono) !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--redline) !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 0 0.6rem 0 !important;
+}
+#p11 .virtual-rcpt-kicker::before {
+  content: "●";
+  animation: v3RecPulse 1.4s ease-in-out infinite;
+}
+#p11 .virtual-rcpt-title {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.5rem, 2.6vw, 1.85rem) !important;
+  line-height: 1.15 !important;
+  color: var(--ink) !important;
+  margin: 0 0 0.4rem 0 !important;
+  text-align: center !important;
+}
+#p11 .virtual-rcpt-sub {
+  font: 400 0.9rem/1.45 var(--font-sans) !important;
+  color: var(--ink-2) !important;
+  text-align: center !important;
+}
+#p11 .btn-primary {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 0.95rem 1.7rem !important;
+  font: 600 0.95rem/1 var(--font-sans) !important;
+  border: 0 !important;
+  align-self: center;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   GLOBAL — gentle phase transitions
+   ═════════════════════════════════════════════════════════════════ */
+
+.phase {
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.phase:not(.active) { transform: translateY(6px); }
+.phase.active { transform: none; }
