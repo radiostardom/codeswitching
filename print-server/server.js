@@ -22,12 +22,13 @@ const usb = require('usb');
 
 const PORT = 3000;
 const PRINT_WIDTH_DOTS = 576;
+const JOB_SPACING_MS = 1500;
 
 // USB IDs for the POS80 Printer USB (confirmed from `ioreg`)
-const VENDOR_ID  = 0x0416;          // 1046 decimal
-const PRODUCT_ID = 0x5011;          // typical for POS80; auto-fallback below
+const VENDOR_ID = 0x0416; // 1046 decimal
+const PRODUCT_ID = 0x5011; // typical for POS80; auto-fallback below
 
-function findPrinter() {
+function findUsbPrinter() {
   let device = usb.findByIds(VENDOR_ID, PRODUCT_ID);
   if (device) return device;
   // fallback: any device matching just the vendor ID
@@ -37,6 +38,7 @@ function findPrinter() {
   return null;
 }
 
+// turn an incoming data-url image into esc/pos bytes the printer understands
 async function imageToEscpos(pngBuffer) {
   const { data: rawGray, info } = await sharp(pngBuffer)
     .resize({ width: PRINT_WIDTH_DOTS, withoutEnlargement: false })
@@ -51,7 +53,7 @@ async function imageToEscpos(pngBuffer) {
   const buf = new Int16Array(width * height);
   for (let i = 0; i < rawGray.length; i++) buf[i] = rawGray[i];
 
-  // Floyd-Steinberg dithering
+  // floyd-steinberg dithering for smoother grayscale->black/white conversion
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const idx = y * width + x;
@@ -59,11 +61,11 @@ async function imageToEscpos(pngBuffer) {
       const newPixel = old < 128 ? 0 : 255;
       buf[idx] = newPixel;
       const err = old - newPixel;
-      if (x + 1 < width)              buf[idx + 1]         += (err * 7) >> 4;
+      if (x + 1 < width) buf[idx + 1] += (err * 7) >> 4;
       if (y + 1 < height) {
-        if (x > 0)                    buf[idx + width - 1] += (err * 3) >> 4;
-                                      buf[idx + width]     += (err * 5) >> 4;
-        if (x + 1 < width)            buf[idx + width + 1] += (err * 1) >> 4;
+        if (x > 0) buf[idx + width - 1] += (err * 3) >> 4;
+        buf[idx + width] += (err * 5) >> 4;
+        if (x + 1 < width) buf[idx + width + 1] += (err * 1) >> 4;
       }
     }
   }
@@ -80,10 +82,12 @@ async function imageToEscpos(pngBuffer) {
   }
 
   const header = Buffer.from([
-    0x1b, 0x40,
-    0x1d, 0x76, 0x30, 0x00,
-    bytesPerRow & 0xff, (bytesPerRow >> 8) & 0xff,
-    height & 0xff, (height >> 8) & 0xff
+    0x1b, 0x40, // initialize printer
+    0x1d, 0x76, 0x30, 0x00, // GS v 0 (raster image mode)
+    bytesPerRow & 0xff,
+    (bytesPerRow >> 8) & 0xff,
+    height & 0xff,
+    (height >> 8) & 0xff
   ]);
   const tail = Buffer.from([
     0x0a, 0x0a, 0x0a, 0x0a,
@@ -92,9 +96,10 @@ async function imageToEscpos(pngBuffer) {
   return Buffer.concat([header, rasterBytes, tail]);
 }
 
+// write one prepared esc/pos payload directly to the printer over usb
 function sendOverUsb(escposBuffer) {
   return new Promise((resolve, reject) => {
-    const device = findPrinter();
+    const device = findUsbPrinter();
     if (!device) return reject(new Error('Printer not found on USB'));
 
     try {
@@ -113,19 +118,27 @@ function sendOverUsb(escposBuffer) {
       }
       iface.claim();
     } catch (e) {
-      try { device.close(); } catch (_) {}
+      try {
+        device.close();
+      } catch (_) {}
       return reject(new Error(`Failed to claim USB interface: ${e.message}`));
     }
 
     const outEndpoint = iface.endpoints.find(ep => ep.direction === 'out');
     if (!outEndpoint) {
-      iface.release(true, () => { try { device.close(); } catch (_) {} });
+      iface.release(true, () => {
+        try {
+          device.close();
+        } catch (_) {}
+      });
       return reject(new Error('No OUT endpoint found on printer'));
     }
 
     outEndpoint.transfer(escposBuffer, (err) => {
       iface.release(true, () => {
-        try { device.close(); } catch (_) {}
+        try {
+          device.close();
+        } catch (_) {}
         if (err) reject(err);
         else resolve();
       });
@@ -134,10 +147,31 @@ function sendOverUsb(escposBuffer) {
 }
 
 let printQueue = Promise.resolve();
+// keep print jobs strictly one-at-a-time so the hardware never overlaps transfers
 function enqueue(job) {
   const next = printQueue.then(job, job);
   printQueue = next.catch(() => {});
   return next;
+}
+
+function sendJson(res, statusCode, payload) {
+  res.writeHead(statusCode, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify(payload));
+}
+
+function parseImageFromBody(rawBody) {
+  const { image } = JSON.parse(rawBody);
+  if (!image) throw new Error('no image in request body');
+  return image;
+}
+
+async function runPrintJob(imageDataUrl) {
+  const base64 = imageDataUrl.replace(/^data:image\/\w+;base64,/, '');
+  const pngBuffer = Buffer.from(base64, 'base64');
+  const escpos = await imageToEscpos(pngBuffer);
+  await sendOverUsb(escpos);
+  // direct usb avoids the cups overlap bug, but this helps the cutter fully finish
+  await new Promise(r => setTimeout(r, JOB_SPACING_MS));
 }
 
 const server = http.createServer(async (req, res) => {
@@ -145,62 +179,54 @@ const server = http.createServer(async (req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
 
   if (req.method === 'POST' && req.url === '/print') {
     let body = '';
     req.on('data', c => body += c);
     req.on('end', () => {
-      let image;
+      let imageDataUrl;
       try {
-        ({ image } = JSON.parse(body));
-        if (!image) throw new Error('no image in request body');
+        imageDataUrl = parseImageFromBody(body);
       } catch (e) {
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: false, error: e.message }));
+        sendJson(res, 400, { ok: false, error: e.message });
         return;
       }
 
-      enqueue(async () => {
-        const base64 = image.replace(/^data:image\/\w+;base64,/, '');
-        const pngBuffer = Buffer.from(base64, 'base64');
-        const escpos = await imageToEscpos(pngBuffer);
-        await sendOverUsb(escpos);
-        // direct USB doesn't have the CUPS overlap bug, but a brief pause
-        // gives the printer time to cut paper before the next job
-        await new Promise(r => setTimeout(r, 1500));
-      })
-      .then(() => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: true }));
-        console.log('✓ printed receipt at', new Date().toLocaleTimeString());
-      })
-      .catch(e => {
-        console.error('✗ print error:', e.message);
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: false, error: e.message }));
-      });
+      enqueue(() => runPrintJob(imageDataUrl))
+        .then(() => {
+          sendJson(res, 200, { ok: true });
+          console.log('✓ printed receipt at', new Date().toLocaleTimeString());
+        })
+        .catch((e) => {
+          console.error('✗ print error:', e.message);
+          sendJson(res, 500, { ok: false, error: e.message });
+        });
     });
     return;
   }
 
   if (req.method === 'GET' && req.url === '/health') {
-    const dev = findPrinter();
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ ok: true, printerFound: !!dev }));
+    const printerDevice = findUsbPrinter();
+    sendJson(res, 200, { ok: true, printerFound: !!printerDevice });
     return;
   }
 
-  res.writeHead(404); res.end('Not found');
+  res.writeHead(404);
+  res.end('Not found');
 });
 
 server.listen(PORT, () => {
-  const dev = findPrinter();
+  const printerDevice = findUsbPrinter();
   console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
   console.log(`  WholeYou™ print server (DIRECT USB)`);
   console.log(`  → http://localhost:${PORT}`);
-  console.log(`  → printer: ${dev ? '✓ found' : '✗ NOT FOUND'}`);
-  if (!dev) {
+  console.log(`  → printer: ${printerDevice ? '✓ found' : '✗ NOT FOUND'}`);
+  if (!printerDevice) {
     console.log(`  → check that the printer is plugged in via USB.`);
     console.log(`  → if it is, run: sudo cupsdisable PrinterCMD_ESCPO_POS80_Printer_USB`);
   }
