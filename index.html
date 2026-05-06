@@ -4914,24 +4914,8 @@
        bottom of the script. search "Breather phase" to find it.
   ─────────────────────────────────────────────────────────────── -->
   <div class="phase" id="p9">
-    <style>
-      /* the three dots that pulse while the candidate waits */
-      .breather-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--accent);
-        animation: breatherPulse 1.4s ease-in-out infinite;
-      }
-      .breather-dot:nth-child(2) { animation-delay: 0.2s; }
-      .breather-dot:nth-child(3) { animation-delay: 0.4s; }
-      @keyframes breatherPulse {
-        0%, 100% { opacity: 0.3; transform: scale(0.9); }
-        50%      { opacity: 1;   transform: scale(1.1); }
-      }
-    </style>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:2rem;max-width:520px;text-align:center;padding:2rem;">
-      <div style="display:inline-flex;align-items:center;gap:0.5rem;animation:fadeIn 0.6s ease both;font-family:var(--sans);font-weight:600;font-size:0.85rem;color:var(--accent);letter-spacing:-0.01em;">
+    <div class="breather-wrap">
+      <div class="breather-eyebrow">
         <svg class="smile breathe" viewBox="0 0 80 80" width="18" height="18" aria-hidden="true">
           <circle cx="40" cy="40" r="38" fill="var(--accent)"/>
           <circle cx="30" cy="33" r="5.5" fill="#fff"/>
@@ -4940,14 +4924,14 @@
         </svg>
         Almost there
       </div>
-      <div style="font-family:var(--sans);font-weight:700;font-size:2.2rem;line-height:1.15;letter-spacing:-0.03em;color:var(--fg);animation:fadeUp 0.8s cubic-bezier(0.34,1.3,0.64,1) 0.2s both;">
-        Preparing your<br/>Candidate Suitability Report<span style="font-size:0.3em;vertical-align:super;font-weight:500;color:var(--fg3);">™</span>
+      <div class="breather-title">
+        Preparing your<br/>Candidate Suitability Report<span class="breather-trademark">™</span>
       </div>
-      <div style="font-family:var(--sans);font-weight:500;font-size:0.95rem;color:var(--fg2);line-height:1.55;max-width:420px;letter-spacing:-0.005em;animation:fadeUp 0.8s cubic-bezier(0.34,1.3,0.64,1) 0.4s both;">
+      <div class="breather-subline">
         Your results are being forwarded to our participating client partners.
         Please do not leave the terminal.
       </div>
-      <div style="display:flex;gap:8px;animation:fadeIn 0.6s ease 0.8s both;">
+      <div class="breather-dots" aria-hidden="true">
         <span class="breather-dot"></span>
         <span class="breather-dot"></span>
         <span class="breather-dot"></span>
@@ -6959,6 +6943,78 @@
     const PRINT_SERVER_URL = 'http://localhost:3000/print';
     const PRINT_TIMEOUT_MS = 8000;
 
+    // small helper so we can wait for layout updates before snapshotting.
+    function waitForTwoAnimationFrames() {
+      return new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    }
+
+    // temporarily switch receipt into "print geometry" and open the wrapper
+    // so html2canvas can see the full scroll height.
+    function enterPrintCaptureMode(receiptEl) {
+      const wrap = receiptEl.closest('.rcpt-wrap');
+      const previous = {
+        overflow: wrap ? wrap.style.overflow : '',
+        maxHeight: wrap ? wrap.style.maxHeight : ''
+      };
+
+      receiptEl.classList.add('print-capture');
+      if (wrap) {
+        wrap.style.overflow = 'visible';
+        wrap.style.maxHeight = 'none';
+      }
+
+      return { wrap, previous };
+    }
+
+    function exitPrintCaptureMode(receiptEl, captureState) {
+      receiptEl.classList.remove('print-capture');
+      if (captureState.wrap) {
+        captureState.wrap.style.overflow = captureState.previous.overflow;
+        captureState.wrap.style.maxHeight = captureState.previous.maxHeight;
+      }
+    }
+
+    async function captureReceiptImage(receiptEl) {
+      const captureState = enterPrintCaptureMode(receiptEl);
+      await waitForTwoAnimationFrames();
+
+      try {
+        const canvas = await html2canvas(receiptEl, {
+          scale: 2,
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          logging: false,
+          // capture the full scroll height, not just the visible window
+          windowWidth: receiptEl.scrollWidth,
+          windowHeight: receiptEl.scrollHeight,
+          scrollX: 0,
+          scrollY: 0
+        });
+        return canvas.toDataURL('image/png');
+      } finally {
+        // always restore the screen view, even if capture fails.
+        exitPrintCaptureMode(receiptEl, captureState);
+      }
+    }
+
+    async function postPrintRequest(imageData) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), PRINT_TIMEOUT_MS);
+
+      try {
+        const res = await fetch(PRINT_SERVER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: imageData }),
+          signal: controller.signal
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || 'print failed');
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
     async function printAndAdvance() {
       // The button only exists when this is called manually from the receipt
       // screen (legacy path). When called from the breather (phase 9), there's
@@ -6975,68 +7031,11 @@
         if (typeof html2canvas === 'undefined') {
           throw new Error('html2canvas not loaded');
         }
-        const rcpt = document.querySelector('.rcpt');
-        if (!rcpt) throw new Error('receipt DOM not ready');
+        const receiptEl = document.querySelector('.rcpt');
+        if (!receiptEl) throw new Error('receipt DOM not ready');
 
-        // swap to print-capture mode briefly. receipt becomes 576px wide
-        // with bigger fonts, sized for the thermal printer instead of the
-        // screen. we strip the class right after so the on-screen view stays
-        // compact.
-        rcpt.classList.add('print-capture');
-
-        // pull rcpt-wrap out of its scroll container for a sec so html2canvas
-        // can actually see the FULL height of the receipt. without this, the
-        // capture only grabs what's visible in the viewport, so everything
-        // scrolled off-screen prints as blank white. that's the bug.
-        const wrap = rcpt.closest('.rcpt-wrap');
-        const originalOverflow = wrap ? wrap.style.overflow : null;
-        const originalMaxHeight = wrap ? wrap.style.maxHeight : null;
-        if (wrap) {
-          wrap.style.overflow = 'visible';
-          wrap.style.maxHeight = 'none';
-        }
-
-        // wait two frames so the browser fully reflows before we snapshot.
-        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-
-        let imageData;
-        try {
-          const canvas = await html2canvas(rcpt, {
-            scale: 2,
-            backgroundColor: '#ffffff',
-            useCORS: true,
-            logging: false,
-            // capture the full scroll height, not just the visible window
-            windowWidth: rcpt.scrollWidth,
-            windowHeight: rcpt.scrollHeight,
-            scrollX: 0,
-            scrollY: 0
-          });
-          imageData = canvas.toDataURL('image/png');
-        } finally {
-          // always put the scroll container back, even if capture blew up
-          rcpt.classList.remove('print-capture');
-          if (wrap) {
-            wrap.style.overflow = originalOverflow || '';
-            wrap.style.maxHeight = originalMaxHeight || '';
-          }
-        }
-
-        // POST to the local print server with a timeout so a hung server
-        // doesn't strand the candidate at the receipt forever.
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), PRINT_TIMEOUT_MS);
-
-        const res = await fetch(PRINT_SERVER_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image: imageData }),
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        const json = await res.json();
-        if (!json.ok) throw new Error(json.error || 'print failed');
+        const imageData = await captureReceiptImage(receiptEl);
+        await postPrintRequest(imageData);
 
         // Print succeeded — advance to phase 8 (the on-screen receipt page)
         // as confirmation, then continue on user input
