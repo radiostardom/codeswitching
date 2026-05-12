@@ -59,7 +59,7 @@
     })();
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Special+Elite&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap');
 
     :root {
       /* ═══════════════════════════════════════════════════════════
@@ -98,8 +98,9 @@
 
       /* ── typography ──────────────────────────────────────────── */
       --font-sans: 'Figtree', system-ui, sans-serif;
-      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-      --font-serif: 'Instrument Serif', Georgia, serif;   /* kept for lore editorial moments */
+      /* keep typography mostly sans for a cleaner, more cohesive voice */
+      --font-mono: var(--font-sans);
+      --font-serif: var(--font-sans);
 
       /* typographic scale. each step is ~1.2x the last (minor third).
          predictable, proportional, easy to reach for. */
@@ -193,12 +194,21 @@
       box-sizing: border-box
     }
 
+    /* keyboard users should always see where focus is */
+    :focus-visible {
+      outline: 3px solid var(--brand);
+      outline-offset: 2px;
+    }
+
     html,
     body {
       height: 100%;
       overflow: hidden;
       font-family: var(--sans);
-      color: var(--fg)
+      color: var(--fg);
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     body {
@@ -207,6 +217,46 @@
       justify-content: center;
       background: var(--bg);
       position: relative;
+    }
+
+    ::selection {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    /* shared micro-interaction polish for clickable controls */
+    button,
+    .btn,
+    .btn-primary,
+    .wx-cta {
+      transition: transform var(--d-fast) var(--ease-soft), box-shadow var(--d-fast) var(--ease-soft), filter var(--d-fast) var(--ease-soft);
+    }
+
+    button:hover,
+    .btn:hover,
+    .btn-primary:hover,
+    .wx-cta:hover {
+      transform: translateY(-1px);
+      filter: saturate(1.03);
+    }
+
+    button:active,
+    .btn:active,
+    .btn-primary:active,
+    .wx-cta:active {
+      transform: translateY(0);
+    }
+
+    /* reduce-motion mode keeps the flow usable without heavy animation */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
     /* ═══ Phase system ═══ */
@@ -3965,7 +4015,7 @@
   </div>
 
   <!-- Loading interstitial -->
-  <div class="interstitial" id="interstitial">
+  <div class="interstitial" id="interstitial" role="status" aria-live="polite">
     <div class="inter-spinner"></div>
     <div class="inter-msg" id="interMsg">Calibrating...</div>
     <div class="inter-count" id="interCount"></div>
@@ -4914,24 +4964,8 @@
        bottom of the script. search "Breather phase" to find it.
   ─────────────────────────────────────────────────────────────── -->
   <div class="phase" id="p9">
-    <style>
-      /* the three dots that pulse while the candidate waits */
-      .breather-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--accent);
-        animation: breatherPulse 1.4s ease-in-out infinite;
-      }
-      .breather-dot:nth-child(2) { animation-delay: 0.2s; }
-      .breather-dot:nth-child(3) { animation-delay: 0.4s; }
-      @keyframes breatherPulse {
-        0%, 100% { opacity: 0.3; transform: scale(0.9); }
-        50%      { opacity: 1;   transform: scale(1.1); }
-      }
-    </style>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:2rem;max-width:520px;text-align:center;padding:2rem;">
-      <div style="display:inline-flex;align-items:center;gap:0.5rem;animation:fadeIn 0.6s ease both;font-family:var(--sans);font-weight:600;font-size:0.85rem;color:var(--accent);letter-spacing:-0.01em;">
+    <div class="breather-wrap">
+      <div class="breather-eyebrow">
         <svg class="smile breathe" viewBox="0 0 80 80" width="18" height="18" aria-hidden="true">
           <circle cx="40" cy="40" r="38" fill="var(--accent)"/>
           <circle cx="30" cy="33" r="5.5" fill="#fff"/>
@@ -4940,14 +4974,14 @@
         </svg>
         Almost there
       </div>
-      <div style="font-family:var(--sans);font-weight:700;font-size:2.2rem;line-height:1.15;letter-spacing:-0.03em;color:var(--fg);animation:fadeUp 0.8s cubic-bezier(0.34,1.3,0.64,1) 0.2s both;">
-        Preparing your<br/>Candidate Suitability Report<span style="font-size:0.3em;vertical-align:super;font-weight:500;color:var(--fg3);">™</span>
+      <div class="breather-title">
+        Preparing your<br/>Candidate Suitability Report<span class="breather-trademark">™</span>
       </div>
-      <div style="font-family:var(--sans);font-weight:500;font-size:0.95rem;color:var(--fg2);line-height:1.55;max-width:420px;letter-spacing:-0.005em;animation:fadeUp 0.8s cubic-bezier(0.34,1.3,0.64,1) 0.4s both;">
+      <div class="breather-subline">
         Your results are being forwarded to our participating client partners.
-        Please do not leave the terminal.
+        Please remain emotionally available at the terminal.
       </div>
-      <div style="display:flex;gap:8px;animation:fadeIn 0.6s ease 0.8s both;">
+      <div class="breather-dots" aria-hidden="true">
         <span class="breather-dot"></span>
         <span class="breather-dot"></span>
         <span class="breather-dot"></span>
@@ -4960,13 +4994,13 @@
     //  HEY FUTURE EL — HERE'S WHERE STUFF LIVES
     // ═══════════════════════════════════════════════════════════
     //
-    //  the kiosk has 10 phases. a candidate walks through them in order:
+    //  the kiosk uses 12 phase containers (0–11). core candidate flow:
     //    0  welcome (idle screen, just the logo and a tap-to-start)
     //    1  lore   (the "hiring is broken, so we're cashing in" intro)
     //    2  punchline (the big reveal that this is Code-Switching)
     //    3  "how it works" (consent/accessibility/camera permission)
     //    4  input form (name + desired role)
-    //    5  screener (5 questions that probe for illegal demographics)
+    //    5  screener (8 questions that probe for illegal demographics)
     //    6  evaluation (webcam turns on, face-api does its thing)
     //    7  results (verdict + ai assessment text)
     //    9  breather (3s pause — "preparing your report...")  ← yes, 9 before 8, see note below
@@ -4986,7 +5020,7 @@
     //    fullReset             — wipes everything and goes back to phase 0
     //
     //  search tips:
-    //    want to change a question? search "SCREENER Q" (1 through 5)
+    //    want to change a question? search "SCREENER Q" (1 through 8)
     //    want to change a penalty? search "SCREENER_PENALTIES"
     //    want to change a job? search "ALTERNATE_ROLES"
     //    want to change a verdict threshold? search "getVerdict"
@@ -5007,9 +5041,10 @@
     // how long the scan lasts. bump this up if people need more time to be creeped out.
     const EVAL_DURATION_SECONDS = 10;
 
-    // grabs all 10 phase <div>s from the page so we can show/hide them.
+    // grabs all phase <div>s from the page so we can show/hide them.
     // phases[7] = the results div, phases[8] = receipt, etc.
-    const phases = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => document.getElementById(`p${i}`));
+    const TOTAL_PHASES = 12;
+    const phases = Array.from({ length: TOTAL_PHASES }, (_, i) => document.getElementById(`p${i}`));
 
     // ═══════════════════════════════════════════════════════════
     //  CODE-SWITCHING NARRATIVE CONSTANTS
@@ -5352,6 +5387,18 @@
     // After 60 seconds on the receipt screen, restart for the next person (kiosk mode)
     let loopTimer = null;
 
+    function setScanFxActive(isActive) {
+      if (isActive) {
+        dot.classList.add('scanning');
+        startParticles();
+        startScanTicks();
+        return;
+      }
+      dot.classList.remove('scanning');
+      stopParticles();
+      stopScanTicks();
+    }
+
     function startLoopTimer() {
       clearTimeout(loopTimer);
       loopTimer = setTimeout(() => {
@@ -5376,12 +5423,12 @@
     // Edit these to change what the system says when consent is "denied."
     const CONSENT_MSGS = [
       'Consent is required to proceed.',
-      'We understand. Consent is still required.',
-      'Your hesitation has been noted. Consent remains required.',
-      'For what it\'s worth, the checkbox was already checked when you got here.',
-      'Opting out is not available in this version of the software.',
-      'We appreciate your thoroughness in testing our interface.',
-      'This is the last message. The checkbox will remain checked.',
+      'Totally hear you. Consent is still required.',
+      'Your hesitation has been logged for quality assurance.',
+      'For what it\'s worth, the checkbox was pre-checked by destiny.',
+      'Opting out is not available in this version of reality.',
+      'We appreciate your continued participation in this illusion of choice.',
+      'Final notice: the checkbox will remain checked.',
     ];
 
     // ═══ Punchline timing ═══
@@ -5531,7 +5578,7 @@
     //  One question at a time, typeform-style.
     //  Selecting an answer auto-advances after 500ms.
     // ═══════════════════════════════════════
-    let screenerStep = 0; // which question we're on (0–4)
+    let screenerStep = 0; // which question we're on (0–7)
     const SCREENER_TOTAL = 8; // total number of questions
 
     // Update the progress bar strips at the top of the screener
@@ -5703,7 +5750,7 @@
     //    3. expression check: smiling = good. neutral = eh. sad/angry = bad.
     //    4. gender binary:    the model only believes in two genders.
     //                         anything ambiguous gets dinged.
-    //    5. screener hits:    the 5 "values" questions each secretly probe
+    //    5. screener hits:    the 8 "values" questions each secretly probe
     //                         for something employers can't legally ask about.
     //
     //  steps 1–4 are the LIVE score shown during the scan. step 5 gets
@@ -5875,14 +5922,14 @@
     }
 
     // ── STEP 5: THE SCREENER PENALTY ──
-    // this is where the 5 "values" questions come back to bite the candidate.
+    // this is where the 8 "values" questions come back to bite the candidate.
     //
     // each question on the screener secretly probes for something real employers
     // legally cannot ask about — age, family status, disability, class, etc.
     // each answer is worth 0–4 penalty points, and those points get subtracted
     // from the candidate's final score at the very end.
     //
-    // max total penalty across all 5 questions = 16 points. so if you aced
+    // max total penalty across all 8 questions = 16 points. so if you aced
     // the biometric half (say, scored 80) and answered badly on the screener,
     // you'd lose up to 16 points off that and drop into "maybe" territory.
     //
@@ -6959,6 +7006,78 @@
     const PRINT_SERVER_URL = 'http://localhost:3000/print';
     const PRINT_TIMEOUT_MS = 8000;
 
+    // small helper so we can wait for layout updates before snapshotting.
+    function waitForTwoAnimationFrames() {
+      return new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    }
+
+    // temporarily switch receipt into "print geometry" and open the wrapper
+    // so html2canvas can see the full scroll height.
+    function enterPrintCaptureMode(receiptEl) {
+      const wrap = receiptEl.closest('.rcpt-wrap');
+      const previous = {
+        overflow: wrap ? wrap.style.overflow : '',
+        maxHeight: wrap ? wrap.style.maxHeight : ''
+      };
+
+      receiptEl.classList.add('print-capture');
+      if (wrap) {
+        wrap.style.overflow = 'visible';
+        wrap.style.maxHeight = 'none';
+      }
+
+      return { wrap, previous };
+    }
+
+    function exitPrintCaptureMode(receiptEl, captureState) {
+      receiptEl.classList.remove('print-capture');
+      if (captureState.wrap) {
+        captureState.wrap.style.overflow = captureState.previous.overflow;
+        captureState.wrap.style.maxHeight = captureState.previous.maxHeight;
+      }
+    }
+
+    async function captureReceiptImage(receiptEl) {
+      const captureState = enterPrintCaptureMode(receiptEl);
+      await waitForTwoAnimationFrames();
+
+      try {
+        const canvas = await html2canvas(receiptEl, {
+          scale: 2,
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          logging: false,
+          // capture the full scroll height, not just the visible window
+          windowWidth: receiptEl.scrollWidth,
+          windowHeight: receiptEl.scrollHeight,
+          scrollX: 0,
+          scrollY: 0
+        });
+        return canvas.toDataURL('image/png');
+      } finally {
+        // always restore the screen view, even if capture fails.
+        exitPrintCaptureMode(receiptEl, captureState);
+      }
+    }
+
+    async function postPrintRequest(imageData) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), PRINT_TIMEOUT_MS);
+
+      try {
+        const res = await fetch(PRINT_SERVER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: imageData }),
+          signal: controller.signal
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || 'print failed');
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
     async function printAndAdvance() {
       // The button only exists when this is called manually from the receipt
       // screen (legacy path). When called from the breather (phase 9), there's
@@ -6975,68 +7094,11 @@
         if (typeof html2canvas === 'undefined') {
           throw new Error('html2canvas not loaded');
         }
-        const rcpt = document.querySelector('.rcpt');
-        if (!rcpt) throw new Error('receipt DOM not ready');
+        const receiptEl = document.querySelector('.rcpt');
+        if (!receiptEl) throw new Error('receipt DOM not ready');
 
-        // swap to print-capture mode briefly. receipt becomes 576px wide
-        // with bigger fonts, sized for the thermal printer instead of the
-        // screen. we strip the class right after so the on-screen view stays
-        // compact.
-        rcpt.classList.add('print-capture');
-
-        // pull rcpt-wrap out of its scroll container for a sec so html2canvas
-        // can actually see the FULL height of the receipt. without this, the
-        // capture only grabs what's visible in the viewport, so everything
-        // scrolled off-screen prints as blank white. that's the bug.
-        const wrap = rcpt.closest('.rcpt-wrap');
-        const originalOverflow = wrap ? wrap.style.overflow : null;
-        const originalMaxHeight = wrap ? wrap.style.maxHeight : null;
-        if (wrap) {
-          wrap.style.overflow = 'visible';
-          wrap.style.maxHeight = 'none';
-        }
-
-        // wait two frames so the browser fully reflows before we snapshot.
-        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-
-        let imageData;
-        try {
-          const canvas = await html2canvas(rcpt, {
-            scale: 2,
-            backgroundColor: '#ffffff',
-            useCORS: true,
-            logging: false,
-            // capture the full scroll height, not just the visible window
-            windowWidth: rcpt.scrollWidth,
-            windowHeight: rcpt.scrollHeight,
-            scrollX: 0,
-            scrollY: 0
-          });
-          imageData = canvas.toDataURL('image/png');
-        } finally {
-          // always put the scroll container back, even if capture blew up
-          rcpt.classList.remove('print-capture');
-          if (wrap) {
-            wrap.style.overflow = originalOverflow || '';
-            wrap.style.maxHeight = originalMaxHeight || '';
-          }
-        }
-
-        // POST to the local print server with a timeout so a hung server
-        // doesn't strand the candidate at the receipt forever.
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), PRINT_TIMEOUT_MS);
-
-        const res = await fetch(PRINT_SERVER_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image: imageData }),
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        const json = await res.json();
-        if (!json.ok) throw new Error(json.error || 'print failed');
+        const imageData = await captureReceiptImage(receiptEl);
+        await postPrintRequest(imageData);
 
         // Print succeeded — advance to phase 8 (the on-screen receipt page)
         // as confirmation, then continue on user input
@@ -7139,13 +7201,13 @@
       // generated by computeScreenerImpact(). this is the most educational part:
       // each line names one illegal thing an employer probed for.
       if (f.scPenalty > 0) {
-        html += `<p>You answered five questions. <b>Every one of them docked your score.</b> Real employers legally can't ask about your age, family status, disability, or class. So they ask about these things <b>indirectly</b>. Here's what each question was actually checking:</p>`;
+        html += `<p>You answered eight questions. <b>Every one of them docked your score.</b> Real employers legally can't ask about your age, family status, disability, or class. So they ask about these things <b>indirectly</b>. Here's what each question was actually checking:</p>`;
         for (const annotation of f.scAnnotations) {
           html += `<p style="margin-left: 12px; font-size: 0.92em;">— ${annotation}</p>`;
         }
         html += `<p>Your screener answers dropped your score by <b>${f.scPenalty} points</b>. Your biometric score before that was <b>${f.scRaw.toFixed(1)}%</b>. Your final score was <b>${f.sc.toFixed(1)}%</b>.</p>`;
       } else {
-        html += `<p>You answered five questions. You happened to pick the "safe" answer on every one. That's rare. Most people don't.</p>`;
+        html += `<p>You answered eight questions. You happened to pick the "safe" answer on every one. That's rare. Most people don't.</p>`;
       }
 
       html += `<p>Your qualifications were never a factor.</p>`;
@@ -7736,15 +7798,7 @@
 
         // scan particles + ticks only belong to phase 6.
         // everything else: shut them off.
-        if (i === 6) {
-          dot.classList.add('scanning');
-          startParticles();
-          startScanTicks();
-        } else {
-          dot.classList.remove('scanning');
-          stopParticles();
-          stopScanTicks();
-        }
+        setScanFxActive(i === 6);
 
         // results page: play a happy or sad chime depending on the score
         if (i === 7 && finalResults) {
