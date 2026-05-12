@@ -1714,16 +1714,6 @@
   transform: translateX(101%);
   pointer-events: none;
 }
-.phase-wipe.wiping {
-  animation: phaseWipeRun 0.85s cubic-bezier(0.5, 0, 0.2, 1);
-}
-@keyframes phaseWipeRun {
-  0%   { transform: translateX(101%); }
-  45%  { transform: translateX(0); }
-  55%  { transform: translateX(0); }
-  100% { transform: translateX(-101%); }
-}
-
 .smile-transition {
   position: fixed;
   inset: 0;
@@ -1741,29 +1731,23 @@
 .smile-transition.activating {
   animation: smileTransRun 1.5s cubic-bezier(0.5, 0, 0.2, 1) forwards;
 }
-@keyframes smileTransRun {
-  0%   { opacity: 0; transform: scale(0.2); }
-  18%  { opacity: 1; transform: scale(0.4); }
-  55%  { opacity: 1; transform: scale(40); }
-  70%  { opacity: 1; transform: scale(40); }
-  100% { opacity: 0; transform: scale(40); }
-}
 
 .global-progress {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 2px;
-  background: rgba(28,30,36,0.05);
+  height: 3px;
+  background: rgba(28,30,36,0.06);
   z-index: 200;
   pointer-events: none;
 }
 .global-progress-fill {
   display: block;
+  position: relative;
   height: 100%;
   width: 0%;
   background: var(--brand);
   transition: width 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
-  box-shadow: 0 0 12px rgba(47,110,220,0.35);
+  box-shadow: 0 0 16px rgba(47,110,220,0.55);
 }
 /* V8 phase transition — toned down per design note.
    Faster sweep, no trailing white highlight, less hang time. */
@@ -1802,7 +1786,6 @@
      next phase's white instead of cutting to it. */
   background: transparent;
 }
-.smile-transition.activating { animation-fill-mode: forwards; }
 .smile-transition.activating::after {
   content: "";
   position: absolute;
@@ -1819,14 +1802,6 @@
   100%     { opacity: 0; }
 }
 
-/* Global progress bar — phase tick marks for orientation */
-.global-progress {
-  height: 3px;
-  background: rgba(28,30,36,0.06);
-}
-.global-progress-fill {
-  box-shadow: 0 0 16px rgba(47,110,220,0.55);
-}
 /* a soft pulse on the leading edge of the fill so it reads as "live" */
 .global-progress-fill::after {
   content: "";
@@ -1843,7 +1818,6 @@
   0%, 100% { transform: translate(50%, -50%) scale(1); opacity: 0.9; }
   50%      { transform: translate(50%, -50%) scale(1.4); opacity: 1; }
 }
-.global-progress-fill { position: relative; }
 
 /* ── LORE BEAT BACKDROPS — each beat gets a distinct signature ─────────── */
 
