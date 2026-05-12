@@ -6168,13 +6168,13 @@
       // Schedule each crossfade at a specific time (in milliseconds)
       // Edit the `at` values to change how long each slide stays on screen
       const beats = [
-        { at: 10000, from: 0, to: 1 }, // → founder (10s on the problem)
-        { at: 26000, from: 1, to: 2 }, // → scripture (16s on Bezok — let all creds read)
-        { at: 38000, from: 2, to: 3 }, // → pivot (12s on the scripture)
+        { at: 6000,  from: 0, to: 1 }, // → founder (~1.5s after "collapsed." finishes collapsing)
+        { at: 16000, from: 1, to: 2 }, // → scripture (10s on Bezok)
+        { at: 28000, from: 2, to: 3 }, // → pivot (12s on the scripture)
       ];
 
       // After pivot has shown for 10s, auto-advance to the punchline
-      loreTimeouts.push(setTimeout(() => goPhase(2), 48000));
+      loreTimeouts.push(setTimeout(() => goPhase(2), 38000));
 
       beats.forEach(({ at, from, to }) => {
         loreTimeouts.push(setTimeout(() => loreBeat(from, to), at));
