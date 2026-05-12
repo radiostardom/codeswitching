@@ -55,7 +55,7 @@
 #p1 .lore-line:not([style]) {
   font-family: var(--font-sans);
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   line-height: 1.18;
   letter-spacing: -0.025em;
@@ -85,10 +85,10 @@
   color: #fff !important;
   border-radius: 999px !important;
   padding: 0.95rem 1.8rem !important;
-  font: 600 0.95rem/1 var(--font-sans) !important;
+  font: 500 0.95rem/1 var(--font-sans) !important;
   letter-spacing: 0 !important;
   border: 0 !important;
-  box-shadow: 0 14px 30px -14px rgba(47,110,220,0.55) !important;
+  box-shadow: 0 4px 12px -4px rgba(47,110,220,0.2) !important;
 }
 
 /* ═════════════════════════════════════════════════════════════════
@@ -144,9 +144,9 @@
   color: #fff !important;
   border-radius: 999px !important;
   padding: 0.95rem 1.8rem !important;
-  font: 600 0.95rem/1 var(--font-sans) !important;
+  font: 500 0.95rem/1 var(--font-sans) !important;
   border: 0 !important;
-  box-shadow: 0 14px 30px -14px rgba(47,110,220,0.55) !important;
+  box-shadow: 0 4px 12px -4px rgba(47,110,220,0.2) !important;
 }
 
 /* ═════════════════════════════════════════════════════════════════
@@ -217,12 +217,12 @@
   background: transparent !important;
   color: var(--brand) !important;
   border-radius: 999px !important;
-  font: 600 1rem/1 var(--font-mono) !important;
+  font: 500 1rem/1 var(--font-mono) !important;
   display: grid !important; place-items: center;
   margin: 0 0 0.4rem 0 !important;
 }
 #p3 .intro-pillars .pillar-title {
-  font: 600 1rem/1.25 var(--font-sans) !important;
+  font: 500 1rem/1.25 var(--font-sans) !important;
   letter-spacing: -0.015em !important;
   color: var(--ink) !important;
   margin: 0 !important;
@@ -240,9 +240,9 @@
   color: #fff !important;
   border-radius: 999px !important;
   padding: 0.95rem 1.8rem !important;
-  font: 600 0.95rem/1 var(--font-sans) !important;
+  font: 500 0.95rem/1 var(--font-sans) !important;
   margin: 0 0 1.4rem 0 !important;
-  box-shadow: 0 14px 30px -14px rgba(47,110,220,0.55) !important;
+  box-shadow: 0 4px 12px -4px rgba(47,110,220,0.2) !important;
 }
 
 #p3 .intro-certs {
@@ -382,9 +382,9 @@
   color: #fff !important;
   border-radius: 999px !important;
   padding: 1rem 1.6rem !important;
-  font: 600 1rem/1 var(--font-sans) !important;
+  font: 500 1rem/1 var(--font-sans) !important;
   letter-spacing: 0 !important;
-  box-shadow: 0 16px 32px -14px rgba(47,110,220,0.55) !important;
+  box-shadow: 0 4px 12px -4px rgba(47,110,220,0.2) !important;
   margin-top: 1.6rem !important;
 }
 #p4 .in-go:hover { transform: translateY(-1px); }
@@ -413,12 +413,12 @@
 #p5 .tf-bar.active { background: var(--brand) !important; opacity: 1 !important; }
 #p5 .tf-bar.done   { background: var(--brand) !important; opacity: 1 !important; }
 
-/* a discreet REC chip top-right of the screener */
+/* a discreet REC chip ABOVE the progress bar (was colliding with it at top: -6px) */
 #p5 .tf-wrap::after {
   content: "● REC";
   position: absolute;
-  top: -6px; right: 0;
-  font: 600 9px/1 var(--font-mono);
+  top: -28px; right: 0;
+  font: 500 9px/1 var(--font-mono);
   letter-spacing: 0.22em;
   color: var(--redline);
   animation: v3RecPulse 1.4s ease-in-out infinite;
@@ -467,7 +467,7 @@
   color: #fff !important;
 }
 #p5 .tf-key {
-  font: 600 11px/1 var(--font-mono) !important;
+  font: 500 11px/1 var(--font-mono) !important;
   letter-spacing: 0.06em !important;
   border: 1px solid var(--rule) !important;
   width: 22px; height: 22px;
@@ -514,8 +514,8 @@
 }
 #p6 .vw::after {
   content: "● REC";
-  position: absolute; top: 12px; right: 14px;
-  font: 600 9px/1 var(--font-mono);
+  position: absolute; top: 12px; left: 14px;
+  font: 500 9px/1 var(--font-mono);
   letter-spacing: 0.22em;
   color: var(--redline);
   animation: v3RecPulse 1.4s ease-in-out infinite;
@@ -539,12 +539,12 @@
   margin-bottom: 0.6rem !important;
 }
 #p6 .bn {
-  font: 600 1.85rem/1 var(--font-sans) !important;
+  font: 500 1.85rem/1 var(--font-sans) !important;
   color: var(--ink) !important;
   letter-spacing: -0.03em !important;
 }
 #p6 .gv {
-  font: 600 1.3rem/1.1 var(--font-sans) !important;
+  font: 500 1.3rem/1.1 var(--font-sans) !important;
   color: var(--ink) !important;
 }
 #p6 .smm {
@@ -635,14 +635,14 @@
 #p7 .fsn {
   font-family: var(--font-sans) !important;
   font-style: normal !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   font-size: clamp(3.4rem, 6vw, 4.6rem) !important;
   line-height: 1 !important;
   letter-spacing: -0.04em !important;
   color: var(--brand) !important;
 }
 #p7 .vp2 {
-  font: 600 11px/1 var(--font-mono) !important;
+  font: 500 11px/1 var(--font-mono) !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   color: var(--ink) !important;
@@ -678,11 +678,11 @@
   color: #fff !important;
   border-radius: 999px !important;
   padding: 1rem 1.7rem !important;
-  font: 600 0.98rem/1 var(--font-sans) !important;
+  font: 500 0.98rem/1 var(--font-sans) !important;
   letter-spacing: 0 !important;
   border: 0 !important;
   margin-top: 0.4rem !important;
-  box-shadow: 0 16px 32px -14px rgba(47,110,220,0.55) !important;
+  box-shadow: 0 4px 12px -4px rgba(47,110,220,0.2) !important;
 }
 
 /* ═════════════════════════════════════════════════════════════════
@@ -713,7 +713,7 @@
   display: inline-flex !important;
   align-items: center;
   gap: 0.4em;
-  font: 600 10px/1 var(--font-mono) !important;
+  font: 500 10px/1 var(--font-mono) !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   color: var(--redline) !important;
@@ -746,7 +746,7 @@
   color: #fff !important;
   border-radius: 999px !important;
   padding: 0.95rem 1.7rem !important;
-  font: 600 0.95rem/1 var(--font-sans) !important;
+  font: 500 0.95rem/1 var(--font-sans) !important;
   border: 0 !important;
   align-self: center;
 }
@@ -784,7 +784,7 @@
   gap: 0.5rem;
   animation: fadeIn 0.6s ease both;
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.85rem;
   color: var(--brand);
   letter-spacing: -0.01em;
@@ -839,3 +839,1516 @@
   0%, 100% { opacity: 0.3; transform: scale(0.9); }
   50%      { opacity: 1; transform: scale(1.1); }
 }
+
+/* ═══ V4 AESTHETIC PASS — CLEAN WHITE + BRAND BLUE ═════════════════════════════
+   The brand direction: Apple Store sterile sleekness. Soft paper white
+   backgrounds, single brand-blue accent, generous whitespace, no grit
+   (no scan lines, no vignettes, no dark photo overlays). The satire
+   stays in the COPY — the surface looks like a real product.
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* ── Welcome — kill the surveillance backdrop entirely ────────────────── */
+#p0 .wx-grid,
+#p0 .wx-scanline,
+#p0 .wx-noise,
+#p0 .wx-reg,
+#p0 .wx-hud {
+  display: none !important;
+}
+#p0 {
+  background: #ffffff !important;
+  --wx-paper: #ffffff;
+  --wx-paper-2: #fafbfd;
+  --wx-line: rgba(28,30,36,0.06);
+  --wx-line-strong: rgba(28,30,36,0.10);
+}
+#p0 .wx-cta {
+  background: var(--brand) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px -4px rgba(47,110,220,0.2) !important;
+}
+#p0 .wx-cta:hover {
+  background: #2459bf !important;
+  box-shadow: 0 4px 12px -4px rgba(47,110,220,0.2) !important;
+}
+#p0 .wx-cta-meta {
+  color: rgba(255,255,255,0.65) !important;
+  border-left-color: rgba(255,255,255,0.22) !important;
+}
+/* compliance + ticker get lighter rules */
+#p0 .wx-compliance { border-top-color: rgba(28,30,36,0.06) !important; }
+#p0 .wx-ticker {
+  background: transparent !important;
+  border-top: 1px solid rgba(28,30,36,0.06) !important;
+  padding-top: 14px;
+}
+#p0 .wx-cam-watch {
+  background: rgba(255,255,255,0.94) !important;
+  border-color: rgba(28,30,36,0.08) !important;
+  box-shadow: 0 4px 14px -6px rgba(28,30,36,0.10) !important;
+}
+
+/* ── Lore — clean paper, dark text, no fullscreen photos ────────────── */
+#p1 { background: #ffffff !important; }
+
+/* hide the dark Unsplash backgrounds + vignettes everywhere except Bezok */
+#p1 .lore-bg-photo { display: none !important; }
+#p1 .lore-vignette { display: none !important; }
+#p1 .lore-wrap.active::after { display: none !important; } /* kill film grain */
+
+/* lore text — dark ink on light paper, balanced */
+#p1 .lore-line {
+  color: var(--ink) !important;
+  text-shadow: none !important;
+}
+#p1 .lore-line em { color: var(--ink-2) !important; }
+#p1 .lore-stat { color: var(--ink-2) !important; text-shadow: none !important; }
+
+/* Beat 1 (Bezok) — a centered framed portrait card.
+   The dark photo lives ONLY inside the frame; the rest of the screen
+   is sterile white. Reads like an Apple Store "about the founder"
+   detail page. */
+#lb1 {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  padding: 2rem !important;
+  max-width: none !important;
+}
+#lb1 .lore-bg-photo { display: none !important; }
+#lb1 .founder-peek { display: none !important; }
+@keyframes lb1PortraitIn {
+  to { opacity: 1; transform: scale(1); }
+}
+#lb1 .founder-kicker {
+  color: var(--brand) !important;
+  margin-bottom: 0.4rem !important;
+  font-weight: 500 !important;
+}
+#lb1 .founder-name {
+  color: var(--ink) !important;
+  font-size: clamp(2.4rem, 4.8vw, 3.6rem) !important;
+}
+#lb1 .founder-name .founder-underline { background: var(--brand) !important; }
+#lb1 .founder-tagline {
+  color: var(--ink-2) !important;
+}
+
+/* Beat 2 (Scripture) — white background, blue oversized open-quote
+   floating behind the type. very Apple Store-quote-on-the-wall. */
+#lb2 { position: relative; }
+#lb2::before {
+  content: "\201C";
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(14rem, 26vw, 28rem);
+  line-height: 0.9;
+  color: var(--brand);
+  opacity: 0.06;
+  pointer-events: none;
+  font-weight: 700;
+  z-index: 0;
+}
+#lb2 .scripture-quote {
+  color: var(--ink) !important;
+  position: relative;
+  z-index: 1;
+}
+#lb2 .scripture-attribution {
+  color: var(--ink-2) !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Beat 0 (Problem) — keep counter type dark */
+#lb0 .lb0-leadin { color: var(--ink-2) !important; text-shadow: none !important; }
+#lb0 .lb0-headline { color: var(--ink) !important; text-shadow: none !important; }
+#lb0 .lb0-datum-label { color: var(--ink-3) !important; }
+#lb0 .lb0-datum-value { color: var(--ink) !important; }
+#lb0 .lb0-datum-value-soft { color: var(--brand) !important; font-style: italic; }
+
+/* Beat 4 (CTA) — ensure the welcome line is dark ink */
+#lb4 .lore-line { color: var(--ink) !important; }
+
+/* Chapter index — needs to flip from white-on-dark to ink-on-light
+   now that the lore phase is light. Drop mix-blend, use a thin rule
+   and brand-blue numeral. */
+.lore-chapter {
+  display: none !important; /* removed per spec — progress bar replaces it */
+}
+
+/* ── V4 motion pass — sleek + whimsy ──────────────────────────────── */
+
+/* slim top progress bar across phase 1 — fills as beats advance.
+   reads like a video scrubber on a museum kiosk. */
+#p1 .lore-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(28,30,36,0.05);
+  z-index: 10;
+  overflow: hidden;
+  pointer-events: none;
+}
+#p1 .lore-progress-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--brand);
+  transition: width 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+  box-shadow: 0 0 12px rgba(47,110,220,0.35);
+}
+
+/* CTA — trim a bit, the kiosk doesn't need a billboard button */
+#p0 .wx[data-wx-layout="kiosk"] .wx-cta {
+  padding: 16px 28px !important;
+  gap: 14px !important;
+  border-radius: 14px !important;
+}
+#p0 .wx[data-wx-layout="kiosk"] .wx-cta-label { font-size: 1.05rem !important; }
+#p0 .wx[data-wx-layout="kiosk"] .wx-cta-glyph { width: 30px !important; height: 30px !important; }
+#p0 .wx[data-wx-layout="kiosk"] .wx-cta-meta { font-size: 0.68rem !important; }
+
+/* (Bezok portrait zoom rule retired — photo is hidden) */
+@keyframes lb1PortraitZoom {
+  from { background-size: 110% !important; background-position: 50% 30% !important; }
+  to   { background-size: 124% !important; background-position: 50% 34% !important; }
+}
+
+/* Beat 0 — brief brand-blue underline draws under each counter when it lands.
+   tiny detail; reads like the system "confirming" each fact. */
+#lb0 .lb0-datum-value[data-count-to] {
+  position: relative;
+}
+#lb0 .lb0-datum-value[data-count-to]::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: -6px;
+  height: 2px;
+  background: var(--brand);
+  border-radius: 2px;
+  transition: right 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+#lb0.active .lb0-datum-value[data-count-to].counted::after { right: 0; }
+
+/* Beat 3 — a small green check appears next to "Appeals filed: 0"
+   once its bar settles. the system reads zero appeals as a feature. */
+.lb3-stat[data-fill="0"] .lb3-stat-value {
+  position: relative;
+  padding-right: 28px;
+}
+.lb3-stat[data-fill="0"] .lb3-stat-value::after {
+  content: "\2713";
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translate(0, -50%) scale(0);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #18a957;
+  color: #fff;
+  font-size: 0.7rem;
+  display: grid; place-items: center;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  opacity: 0;
+}
+#lb3.active .lb3-stat[data-fill="0"] .lb3-stat-value::after {
+  animation: appealsCheckIn 0.5s cubic-bezier(0.34, 1.5, 0.64, 1) 2.2s forwards;
+}
+@keyframes appealsCheckIn {
+  to { transform: translate(0, -50%) scale(1); opacity: 1; }
+}
+
+
+
+/* Welcome wordmark — the smile mascot blinks (it already does), but
+   on first paint give it a small "hello" bounce so the brand feels
+   alive when you walk up to the kiosk. */
+#p0 .wx-wm-smile {
+  animation: wmHello 0.7s cubic-bezier(0.34, 1.5, 0.64, 1) 0.6s 1 both,
+             smileBreathe 4s ease-in-out 1.5s infinite !important;
+  transform-origin: center;
+}
+@keyframes wmHello {
+  0%   { transform: scale(0) rotate(-20deg); opacity: 0; }
+  60%  { transform: scale(1.08) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes smileBreathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.03); }
+}
+
+/* ═══ V5 PLAYFUL MOTION PASS ══════════════════════════════════════════════
+   tiny moments of life across every phase. each one is fast (<1s),
+   small in surface area, and on-brand (blue + white + the smile).
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── between-phase sweep ─────────────────────────────────────── */
+/* a thin brand-blue line wipes across the top of any newly-active phase.
+   gives every transition a subtle "loading bar finished" beat. */
+.phase.active::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--brand), transparent);
+  transform: translateX(-100%);
+  animation: phaseSweep 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  z-index: 100;
+  pointer-events: none;
+}
+@keyframes phaseSweep {
+  to { transform: translateX(100%); }
+}
+/* phase 1 already has its own progress bar at top — suppress the sweep there */
+#p1.active::before { display: none; }
+
+/* ── Phase 2 — strikethrough on "humans" ──────────────────────── */
+.punch-strike {
+  position: relative;
+  display: inline-block;
+  color: var(--ink-2) !important;
+}
+.punch-strike::after {
+  content: "";
+  position: absolute;
+  left: -2%; right: 102%;
+  top: 56%;
+  height: 3px;
+  background: var(--brand);
+  border-radius: 2px;
+  transition: right 0.55s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.punch-drop.in .punch-strike::after { right: -2%; transition-delay: 0.6s; }
+
+/* ── Phase 3 — pillar number pop ───────────────────────────── */
+#p3.active .pillar-icon {
+  animation: pillarPop 0.7s cubic-bezier(0.34, 1.6, 0.64, 1) both;
+}
+#p3.active .pillar:nth-child(1) .pillar-icon { animation-delay: 0.3s; }
+#p3.active .pillar:nth-child(2) .pillar-icon { animation-delay: 0.5s; }
+#p3.active .pillar:nth-child(3) .pillar-icon { animation-delay: 0.7s; }
+@keyframes pillarPop {
+  0%   { opacity: 0; transform: scale(0.4) rotate(-25deg); }
+  60%  { opacity: 1; transform: scale(1.18) rotate(4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+#p3.active .pillar {
+  animation: pillarFade 0.6s ease both;
+}
+#p3.active .pillar:nth-child(1) { animation-delay: 0.2s; }
+#p3.active .pillar:nth-child(2) { animation-delay: 0.4s; }
+#p3.active .pillar:nth-child(3) { animation-delay: 0.6s; }
+@keyframes pillarFade {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Phase 4 — step-dot active scales up + pill option satisfying tap ───── */
+#p4 .step-dot { transition: width 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), background 0.2s ease; }
+#p4 .pill-opt { transition: transform 0.15s ease, border-color 0.15s ease, background 0.2s ease, color 0.2s ease !important; }
+#p4 .pill-opt:active { transform: scale(0.94) !important; }
+#p4 .pill-opt.selected { animation: pillBump 0.35s cubic-bezier(0.34, 1.6, 0.64, 1); }
+@keyframes pillBump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ── Phase 5 — screener option bump + question slide ───────────────── */
+#p5 .tf-opt { transition: all 0.18s ease !important; }
+#p5 .tf-opt:active { transform: scale(0.98) !important; }
+/* gentler select feedback — just a tiny scale, no bounce */
+#p5 .tf-opt.selected { transform: scale(1.0); }
+#p5 .tf-q {
+  animation: tfQuestionIn 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+@keyframes tfQuestionIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Phase 7 — score lock-in pulse ─────────────────────────── */
+#p7 .fsn { transition: transform 0.4s cubic-bezier(0.34, 1.6, 0.64, 1); }
+#p7 .fsn.locked-in { animation: scoreLockIn 0.6s cubic-bezier(0.34, 1.6, 0.64, 1); }
+@keyframes scoreLockIn {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+#p7 .vp2 {
+  animation: verdictPillIn 0.5s cubic-bezier(0.34, 1.5, 0.64, 1) 0.5s both;
+}
+@keyframes verdictPillIn {
+  from { opacity: 0; transform: translateY(6px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Bezok beat — tiny smile peeks into the corner of his portrait ──────── */
+.founder-peek {
+  position: absolute;
+  width: clamp(40px, 5vw, 60px);
+  height: clamp(40px, 5vw, 60px);
+  /* placed near the lower-right of the portrait circle */
+  left: calc(50% + clamp(70px, 9vw, 110px));
+  top: calc(50% + clamp(50px, 7vw, 80px));
+  transform: translate(-50%, -50%) scale(0) rotate(-30deg);
+  opacity: 0;
+  z-index: 3;
+  filter: drop-shadow(0 6px 14px rgba(47,110,220,0.4));
+  pointer-events: none;
+}
+#lb1.active .founder-peek {
+  animation: peekIn 0.8s cubic-bezier(0.34, 1.6, 0.64, 1) 2.6s forwards;
+}
+@keyframes peekIn {
+  0%   { opacity: 0; transform: translate(-50%, -30%) scale(0) rotate(-30deg); }
+  60%  { opacity: 1; transform: translate(-50%, -55%) scale(1.1) rotate(8deg); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0); }
+}
+
+/* ── Welcome wordmark smile — occasional eye dart (left/right glance) ────── */
+#p0 .wx-wm-smile .smile-eye {
+  animation:
+    smileBlink 5s infinite,
+    eyeDart 11s ease-in-out 4s infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+@keyframes eyeDart {
+  0%, 12%, 100%   { transform: translateX(0); }
+  14%, 22%        { transform: translateX(-2.5px); }   /* glance left */
+  24%, 50%        { transform: translateX(0); }
+  52%, 60%        { transform: translateX(2.5px); }    /* glance right */
+  62%, 99%        { transform: translateX(0); }
+}
+
+/* ── Phase 9 (breather) — dots already pulse, add a tiny smile bob ──────── */
+#p9 .breather-eyebrow .smile {
+  animation: breatherSmileBob 1.8s ease-in-out infinite, smileBlink 5s infinite;
+}
+@keyframes breatherSmileBob {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50%      { transform: translateY(-3px) rotate(8deg); }
+}
+
+/* ── button hover micro-bounce on every brand button ────────────────── */
+.btn-primary, .in-go, .action-btn {
+  transition: transform 0.18s cubic-bezier(0.34, 1.5, 0.64, 1),
+              box-shadow 0.25s ease,
+              background 0.2s ease !important;
+}
+.btn-primary:hover, .in-go:hover, .action-btn:hover { transform: translateY(-2px) !important; }
+.btn-primary:active, .in-go:active, .action-btn:active { transform: translateY(0) scale(0.97) !important; transition-duration: 60ms !important; }
+
+/* ── V6.1 — Re-use the breather "kicker / title / subline" formula ──────
+   on Phase 3. Same vertical rhythm as the breather screen, same
+   typography weights, so transitions across phases feel cohesive. */
+#p3 .intro-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans) !important;
+  font-weight: 500 !important;
+  font-size: 0.92rem !important;
+  letter-spacing: -0.01em !important;
+  color: var(--brand) !important;
+  margin: 0.4rem 0 0.7rem !important;
+  text-transform: none !important;
+  animation: fadeIn 0.6s ease both !important;
+}
+#p3 .intro-h {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.9rem, 3.4vw, 2.4rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.03em !important;
+  color: var(--ink) !important;
+  margin: 0 0 0.5rem !important;
+  text-wrap: balance;
+  animation: fadeUp 0.8s cubic-bezier(0.34,1.3,0.64,1) 0.2s both !important;
+}
+#p3 .intro-sub {
+  font-family: var(--font-sans) !important;
+  font-weight: 500 !important;
+  font-size: 0.98rem !important;
+  line-height: 1.5 !important;
+  color: var(--ink-2) !important;
+  max-width: 44ch;
+  margin: 0 auto 2rem !important;
+  text-wrap: pretty;
+  animation: fadeUp 0.8s cubic-bezier(0.34,1.3,0.64,1) 0.4s both !important;
+}
+
+/* Beat 4 — globe removed per spec; clean white welcome moment. */
+#lb4 .lb4-globe { display: none !important; }
+#lb4 .lb4-ping { display: none !important; }
+.lb4-globe-svg {
+  width: clamp(420px, 64vw, 760px);
+  height: clamp(420px, 64vw, 760px);
+  opacity: 0;
+  transition: opacity 0.9s ease 0.2s;
+  animation: lb4GlobeSpin 38s linear infinite;
+}
+#lb4.active .lb4-globe-svg { opacity: 1; }
+@keyframes lb4GlobeSpin {
+  to { transform: rotate(360deg); }
+}
+.lb4-ping {
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 12px rgba(47,110,220,0.5);
+  opacity: 0;
+  transform: scale(0.4);
+}
+#lb4.active .lb4-ping {
+  animation: lb4Ping 3.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes lb4Ping {
+  0%, 100% { transform: scale(0.4); opacity: 0; box-shadow: 0 0 0 0 rgba(47,110,220,0.45); }
+  20%      { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(47,110,220,0.45); }
+  70%      { transform: scale(1); opacity: 0.6; box-shadow: 0 0 0 18px rgba(47,110,220,0); }
+  85%      { transform: scale(0.7); opacity: 0; }
+}
+
+/* ═══ V7 — BIG INTRO MOTION PASS ══════════════════════════════════════
+   choreographing the first 30s. each beat has its own small moment.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Welcome wordmark: letter-by-letter spring-up ────────────────────
+   each .wxl letter pops in with a tiny rotate + scale spring.
+   the smile-as-o still does its own hello bounce (separate keyframe). */
+#p0 .wx-wordmark .wxl {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px) rotate(-3deg) scale(0.85);
+  animation: wmLetterIn 0.55s cubic-bezier(0.34, 1.5, 0.64, 1) forwards;
+}
+#p0 .wx-wordmark .wxl:nth-child(1)  { animation-delay: 0.55s; }
+#p0 .wx-wordmark .wxl:nth-child(2)  { animation-delay: 0.62s; }
+#p0 .wx-wordmark .wxl:nth-child(3)  { animation-delay: 0.69s; }
+#p0 .wx-wordmark .wxl:nth-child(4)  { animation-delay: 0.76s; }
+#p0 .wx-wordmark .wxl:nth-child(5)  { animation-delay: 0.83s; }
+#p0 .wx-wordmark .wxl:nth-child(6)  { animation-delay: 0.96s; }  /* Y, leaves room for smile beat */
+#p0 .wx-wordmark .wxl:nth-child(8)  { animation-delay: 1.18s; }  /* u (smile is child 7) */
+@keyframes wmLetterIn {
+  to { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+}
+/* the parent wordmark animation that was making it fade up as a block
+   would fight the per-letter timing. nullify it; letters carry the entrance. */
+#p0 .wx-wordmark { animation: none !important; opacity: 1 !important; }
+
+/* ── CAM 01 chip: slides in from right (radar sweep removed per spec) ────── */
+#p0 .wx[data-wx-layout="kiosk"] .wx-cam-watch {
+  animation: camChipIn 0.75s cubic-bezier(0.2, 0.9, 0.3, 1) 0.7s both !important;
+}
+@keyframes camChipIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Ticker fade-in cascade on entry ────────────────────────── */
+#p0 .wx-ticker-track > span {
+  opacity: 0;
+  animation: tickerSpanIn 0.45s ease forwards;
+}
+#p0 .wx-ticker-track > span:nth-child(1)  { animation-delay: 2.1s; }
+#p0 .wx-ticker-track > span:nth-child(2)  { animation-delay: 2.15s; }
+#p0 .wx-ticker-track > span:nth-child(3)  { animation-delay: 2.2s; }
+#p0 .wx-ticker-track > span:nth-child(4)  { animation-delay: 2.25s; }
+#p0 .wx-ticker-track > span:nth-child(5)  { animation-delay: 2.3s; }
+#p0 .wx-ticker-track > span:nth-child(6)  { animation-delay: 2.35s; }
+#p0 .wx-ticker-track > span:nth-child(7)  { animation-delay: 2.4s; }
+#p0 .wx-ticker-track > span:nth-child(8)  { animation-delay: 2.45s; }
+#p0 .wx-ticker-track > span:nth-child(n+9) { animation-delay: 2.5s; }
+@keyframes tickerSpanIn { to { opacity: 1; } }
+
+/* ── CTA gentle hover glow ring ───────────────────────────── */
+#p0 .wx-cta {
+  position: relative;
+}
+#p0 .wx-cta::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 2px solid var(--brand);
+  opacity: 0;
+  pointer-events: none;
+  animation: ctaGlowRing 3.2s ease-in-out 2.8s infinite;
+}
+@keyframes ctaGlowRing {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(1.04); }
+}
+
+/* ── Beat 0 scan line crosses the screen as "collapsed." lands ───────── */
+.lb0-scanline {
+  position: fixed;
+  top: 50%;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(47,110,220,0.5) 50%, transparent 100%);
+  z-index: 3;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  box-shadow: 0 0 12px rgba(47,110,220,0.4);
+}
+#lb0.active .lb0-scanline {
+  animation: lb0ScanCross 1.6s cubic-bezier(0.45, 0, 0.55, 1) 1.1s forwards;
+}
+@keyframes lb0ScanCross {
+  0%   { opacity: 0; transform: scaleX(0); transform-origin: left center; }
+  25%  { opacity: 1; transform: scaleX(1); transform-origin: left center; }
+  50%  { opacity: 1; transform: scaleX(1); transform-origin: right center; }
+  100% { opacity: 0; transform: scaleX(0); transform-origin: right center; }
+}
+
+/* ── Beat 1 (Bezok) — "Our Founder" letters wave in + credentials list ───── */
+#lb1 .founder-kicker {
+  animation: founderRise 0.7s cubic-bezier(0.34, 1.3, 0.64, 1) 0.2s forwards,
+             founderKickerWave 1.6s ease-in-out 1.2s 1 !important;
+}
+@keyframes founderKickerWave {
+  0%, 100% { letter-spacing: 0.18em; }
+  50%      { letter-spacing: 0.28em; }
+}
+
+/* Bezok credentials list — stacked centered lines with brand-blue dots.
+   each line stagger-fades up so the dossier reveals one credential at a time. */
+#lb1 .founder-creds {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  align-items: center;
+  max-width: 44ch;
+  width: 100%;
+}
+#lb1 .founder-creds li {
+  position: relative;
+  padding-left: 1.2rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: -0.005em;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: credLineIn 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+#lb1 .founder-creds li em { font-style: italic; color: var(--ink); }
+#lb1 .founder-creds li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+#lb1 .founder-creds li:nth-child(1) { animation-delay: 1.4s; }
+#lb1 .founder-creds li:nth-child(2) { animation-delay: 1.55s; }
+#lb1 .founder-creds li:nth-child(3) { animation-delay: 1.7s; }
+#lb1 .founder-creds li:nth-child(4) { animation-delay: 1.85s; }
+@keyframes credLineIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Beat 2 (Scripture) — typewriter cursor stays brand blue + bigger ──── */
+#lb2 .scripture-cursor { color: var(--brand); }
+/* attribution slides up with a tiny page-flip rotate */
+#lb2 .scripture-attribution {
+  transform: translateY(8px) perspective(400px) rotateX(-6deg);
+  transform-origin: top center;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+#lb2 .scripture-attribution.reveal {
+  opacity: 1 !important;
+  transform: translateY(0) perspective(400px) rotateX(0);
+}
+
+/* ── Beat 3 — the "0" on Appeals flips around like a flipboard ────────── */
+#lb3.active .lb3-stat[data-fill="0"] .lb3-stat-value {
+  animation: appealsZeroFlip 1s cubic-bezier(0.34, 1.4, 0.64, 1) 1.4s both;
+  display: inline-block;
+  transform-origin: center;
+}
+@keyframes appealsZeroFlip {
+  0%   { transform: rotateX(180deg); opacity: 0; }
+  50%  { opacity: 1; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+/* ── Beat 3 — brand-blue check stamp appears as each filled bar completes ── */
+.lb3-stat:not([data-fill="0"]) .lb3-stat-value {
+  position: relative;
+  padding-right: 28px;
+}
+.lb3-stat:not([data-fill="0"]) .lb3-stat-value::after {
+  content: "\2713";
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translate(0, -50%) scale(0);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.7rem;
+  display: grid; place-items: center;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  opacity: 0;
+}
+#lb3.active .lb3-stat:nth-child(1):not([data-fill="0"]) .lb3-stat-value::after {
+  animation: barStampIn 0.45s cubic-bezier(0.34, 1.5, 0.64, 1) 1.7s forwards;
+}
+#lb3.active .lb3-stat:nth-child(2):not([data-fill="0"]) .lb3-stat-value::after {
+  animation: barStampIn 0.45s cubic-bezier(0.34, 1.5, 0.64, 1) 1.9s forwards;
+}
+@keyframes barStampIn {
+  to { transform: translate(0, -50%) scale(1); opacity: 1; }
+}
+
+
+/* ═══ V6 — iOS SIGNUP FLOW SYSTEM ══════════════════════════════════
+   spring-y, sheet-pushes, big pill CTAs, single-blue, soft cards. the
+   surface looks like a real Apple Account setup. the content is what
+   makes it wild.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── iOS sheet-push phase transition ─────────────────────────────
+   newly-active phase slides up from below + fades in,
+   like a modal sheet on iOS. spring easing keeps it lively. */
+.phase {
+  transition: opacity 0.55s ease, transform 0.6s cubic-bezier(0.34, 1.2, 0.4, 1) !important;
+}
+.phase:not(.active) { transform: translateY(24px) !important; }
+.phase.active        { transform: translateY(0) !important; }
+
+/* phase 0 (welcome) is the "first screen" — don't slide it in,
+   it's already there when the user walks up to the kiosk. */
+#p0:not(.active) { transform: none !important; }
+
+/* ── iOS primary button — unify every CTA ───────────────────────── */
+.btn-primary, .in-go, .action-btn, #p11 .btn-primary, #p3 .intro-card > .btn-primary {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 14px !important;       /* iOS modal action button radius */
+  padding: 16px 28px !important;
+  font: 500 1.02rem/1 var(--font-sans) !important;
+  letter-spacing: -0.01em !important;
+  min-width: 220px;
+  box-shadow:
+    0 8px 22px -8px rgba(47,110,220,0.55),
+    0 1px 0 rgba(255,255,255,0.22) inset !important;
+}
+.btn-primary:hover, .in-go:hover, .action-btn:hover {
+  background: #2459bf !important;
+  box-shadow:
+    0 14px 32px -10px rgba(47,110,220,0.6),
+    0 1px 0 rgba(255,255,255,0.22) inset !important;
+}
+
+/* full-pill variant kept for places that want it (welcome CTA already in kiosk) */
+#lb4 .btn-primary, #p2 .punch-continue .btn-primary {
+  border-radius: 999px !important;
+  padding: 17px 36px !important;
+}
+
+/* ── iOS step dots — active dot stretches into a pill ──────────────── */
+#p4 .step-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 999px !important;
+  background: rgba(28,30,36,0.12) !important;
+  transition: width 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+              background 0.25s ease !important;
+}
+#p4 .step-dot.active {
+  width: 28px !important;
+  background: var(--brand) !important;
+}
+#p4 .step-dot.done {
+  background: var(--brand) !important;
+  opacity: 0.4 !important;
+  width: 7px !important;
+}
+
+/* ── iOS card — unify card chrome on intake / how-it-works / etc. ────── */
+#p3 .intro-card,
+#p4 .in-card {
+  border-radius: 22px !important;       /* iOS sheet corner */
+  border: 1px solid rgba(28,30,36,0.06) !important;
+  background: #ffffff !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.85) inset,
+    0 24px 50px -28px rgba(28,30,36,0.14),
+    0 8px 16px -10px rgba(28,30,36,0.06) !important;
+}
+
+/* small sheet handle — a thin grey bar at the top of intake card,
+   the way iOS modal sheets have a drag handle. purely decorative. */
+#p4 .in-card,
+#p3 .intro-card { position: relative; }
+#p4 .in-card::before,
+#p3 .intro-card::before {
+  content: "";
+  position: absolute;
+  top: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: 38px; height: 4px;
+  background: rgba(28,30,36,0.12);
+  border-radius: 2px;
+}
+
+/* ── iOS input focus — underline grows from center on focus ─────────── */
+#p4 .fg {
+  position: relative;
+}
+#p4 input[type="text"] {
+  border-bottom-color: rgba(28,30,36,0.10) !important;
+  border-bottom-width: 1.5px !important;
+  transition: border-color 0.2s ease;
+}
+#p4 input[type="text"]:focus {
+  border-bottom-color: var(--brand) !important;
+}
+/* a brand-blue underline that grows from the center on focus —
+   the iOS "caret + accent" feel. */
+#p4 .fg::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--brand);
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: width 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+  pointer-events: none;
+}
+#p4 .fg:focus-within::after { width: 100%; }
+
+/* ── iOS pill chip selector ───────────────────────────────────
+   already pill-shaped — just bump padding + spring transitions */
+#p4 .pill-opt {
+  padding: 10px 16px !important;
+  border-color: rgba(28,30,36,0.10) !important;
+  font-weight: 500 !important;
+  transition:
+    transform 0.18s cubic-bezier(0.34, 1.5, 0.64, 1),
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease !important;
+}
+
+/* ── Screener question card feels like an iOS modal too ─────────────── */
+#p5 .tf-opt {
+  border-radius: 14px !important;
+  padding: 14px 16px !important;
+  background: #fff !important;
+  border: 1px solid rgba(28,30,36,0.08) !important;
+  box-shadow: 0 1px 2px rgba(28,30,36,0.03);
+}
+#p5 .tf-opt:hover {
+  border-color: var(--brand) !important;
+  background: rgba(47,110,220,0.04) !important;
+  color: var(--ink) !important;
+}
+#p5 .tf-opt.selected {
+  background: var(--brand) !important;
+  border-color: var(--brand) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 10px -4px rgba(47,110,220,0.2);
+}
+
+/* ── Welcome ribbon (compliance / ticker) get iOS-tone color ────────── */
+#p0 .wx-compliance { color: rgba(28,30,36,0.45) !important; }
+#p0 .wx-ticker { color: rgba(28,30,36,0.5) !important; }
+
+/* ── iOS friendly tone: button glyph wraps tighter ───────────────── */
+#p0 .wx[data-wx-layout="kiosk"] .wx-cta {
+  border-radius: 14px !important;
+  box-shadow:
+    0 14px 30px -8px rgba(47,110,220,0.5),
+    0 1px 0 rgba(255,255,255,0.22) inset !important;
+}
+
+
+
+
+
+
+
+/* ═══ V8 — PHASE TRANSITION CHROME ════════════════════════════════════
+   three pieces of overlay UI animate on phase change:
+     • phase-wipe — brand-blue panel sweeps over the swap (default)
+     • smile-transition — fires only on 0→1; giant smile fills the screen
+     • global-progress — top progress bar across the entire funnel
+   ════════════════════════════════════════════════════════════════════ */
+
+.phase-wipe {
+  position: fixed;
+  inset: 0;
+  background: var(--brand);
+  z-index: 9000;
+  transform: translateX(101%);
+  pointer-events: none;
+}
+.smile-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9001;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+}
+.smile-transition svg {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+.smile-transition.activating {
+  animation: smileTransRun 1.5s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+}
+.global-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(28,30,36,0.06);
+  z-index: 200;
+  pointer-events: none;
+}
+.global-progress-fill {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 0%;
+  background: var(--brand);
+  transition: width 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+  box-shadow: 0 0 16px rgba(47,110,220,0.55);
+}
+/* V8 phase transition — toned down per design note.
+   Faster sweep, no trailing white highlight, less hang time. */
+
+.phase-wipe.wiping {
+  animation: phaseWipeRun 0.55s cubic-bezier(0.5, 0, 0.2, 1);
+}
+/* keynote-style highlight stripe removed — was too much. */
+.phase-wipe.wiping::before { content: none; }
+@keyframes phaseWipeRun {
+  0%   { transform: translateX(101%); }
+  45%  { transform: translateX(0); }
+  52%  { transform: translateX(0); }
+  100% { transform: translateX(-101%); }
+}
+
+/* Smile transition — origin-anchored to the wordmark's smile so it
+   visually grows OUT of the logo. JS sets --smile-start-x/y/scale
+   from the wordmark smile's live bounding rect right before fire. */
+@keyframes smileTransRun {
+  0%   { opacity: 0;
+         transform: translate(var(--smile-start-x, 0px), var(--smile-start-y, 0px))
+                    scale(var(--smile-start-scale, 0.18));
+         background-color: transparent; }
+  14%  { opacity: 1;
+         transform: translate(calc(var(--smile-start-x, 0px) * 0.85),
+                              calc(var(--smile-start-y, 0px) * 0.85))
+                    scale(calc(var(--smile-start-scale, 0.18) * 1.2)); }
+  55%  { opacity: 1; transform: translate(0, 0) scale(90); }
+  72%  { opacity: 1; transform: translate(0, 0) scale(90); }
+  100% { opacity: 0; transform: translate(0, 0) scale(90); }
+}
+.smile-transition {
+  /* a brand-blue layer behind the smile that holds briefly after the
+     smile dissolves, then fades to transparent. cross-fades into the
+     next phase's white instead of cutting to it. */
+  background: transparent;
+}
+.smile-transition.activating::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--brand);
+  opacity: 0;
+  animation: smileTransBg 1.5s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+  z-index: -1;
+}
+@keyframes smileTransBg {
+  0%, 30%  { opacity: 0; }
+  52%      { opacity: 1; }
+  74%      { opacity: 1; }
+  100%     { opacity: 0; }
+}
+
+/* a soft pulse on the leading edge of the fill so it reads as "live" */
+.global-progress-fill::after {
+  content: "";
+  position: absolute;
+  right: 0; top: 50%;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+  transform: translate(50%, -50%);
+  box-shadow: 0 0 10px rgba(47,110,220,0.7);
+  animation: progressPulse 1.6s ease-in-out infinite;
+}
+@keyframes progressPulse {
+  0%, 100% { transform: translate(50%, -50%) scale(1); opacity: 0.9; }
+  50%      { transform: translate(50%, -50%) scale(1.4); opacity: 1; }
+}
+
+/* ── LORE BEAT BACKDROPS — each beat gets a distinct signature ─────────── */
+
+/* Beat 1 (Bezok) vertical brand-blue rule — RETIRED per design note.
+   Kept the keyframe intact in case we want to revive it; the ::before
+   element is suppressed so nothing draws. */
+#lb1::before {
+  content: none;
+  position: absolute;
+  left: clamp(20px, 4vw, 60px);
+  top: 18%;
+  bottom: 18%;
+  width: 3px;
+  background: var(--brand);
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top center;
+  pointer-events: none;
+}
+#lb1.active::before {
+  animation: lb1RuleDraw 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s forwards;
+}
+@keyframes lb1RuleDraw {
+  to { opacity: 1; transform: scaleY(1); }
+}
+
+/* Beat 3 (Pivot): subtle dot-grid backdrop fades in behind the stats.
+   reads as "now plotting on the dashboard" without competing with content. */
+#lb3::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(47,110,220,0.18) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+  opacity: 0;
+  pointer-events: none;
+}
+#lb3.active::before {
+  animation: lb3GridIn 1.2s ease 0.2s forwards;
+}
+@keyframes lb3GridIn {
+  to { opacity: 0.7; }
+}
+
+/* Beat 4 (Promise): soft brand-blue radial vignette under the welcome
+   text — warm light pulling the eye toward the continue button. */
+#lb4::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 40% at 50% 60%, rgba(47,110,220,0.10), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+#lb4.active::before {
+  animation: lb4VignetteIn 1.4s ease 0.2s forwards;
+}
+@keyframes lb4VignetteIn {
+  to { opacity: 1; }
+}
+
+
+
+
+
+/* ═════════════════════════════════════════════════════════════════
+   BEAT 1 (FOUNDER) — DRAMATIC EDITORIAL DOSSIER
+   ═════════════════════════════════════════════════════════════════
+   Asymmetric two-column layout. Portrait card on the left with a
+   rotating brand-blue seal beneath; oversized italic name + numbered
+   credentials on the right. Giant BEZOK watermark behind. Print-mag
+   registration crosses anchor the corners. Lots of staggered motion.
+   ═════════════════════════════════════════════════════════════════ */
+
+/* Override the base .lore-wrap constraints for the editorial dossier. */
+#lb1 {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  max-width: none !important;   /* kill the 700px cap from .lore-wrap */
+  text-align: left !important;  /* kill center-align from .lore-wrap */
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  background: #ffffff !important;
+}
+#lb1.active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* hide the old founder-* nodes if any leftover references render them */
+#lb1 .founder-kicker,
+#lb1 .founder-name,
+#lb1 .founder-tagline,
+#lb1 .founder-creds,
+#lb1 .lore-bg,
+#lb1 .lore-vignette {
+  display: none !important;
+}
+
+/* ── force decorative elements out of normal flow ────────────────
+   .lore-wrap > *:not(.lore-bg):not(.lore-vignette) { position: relative }
+   in the inline <style> has higher specificity than our rules below.
+   !important beats it so these never push the grid off-screen. */
+.lb1-watermark { position: absolute !important; }
+.lb1-vlabel    { position: absolute !important; }
+.lb1-chapter   { position: absolute !important; }
+.lb1-seal      { position: absolute !important; }
+
+/* ── corner registration crosses ─────────────────────────────── */
+.lb1-reg {
+  position: absolute !important;
+  width: 14px; height: 14px;
+  z-index: 2;
+  opacity: 0;
+}
+#lb1.active .lb1-reg {
+  animation: lb1RegIn 0.5s ease 0.2s forwards;
+}
+.lb1-reg::before,
+.lb1-reg::after {
+  content: "";
+  position: absolute;
+  background: var(--ink-3);
+}
+.lb1-reg::before { left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); }
+.lb1-reg::after  { top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%); }
+.lb1-reg-tl { top: 24px; left: 24px; }
+.lb1-reg-tr { top: 24px; right: 24px; }
+.lb1-reg-bl { bottom: 24px; left: 24px; }
+.lb1-reg-br { bottom: 24px; right: 24px; }
+@keyframes lb1RegIn { to { opacity: 0.55; } }
+
+/* ── giant watermark wordmark ────────────────────────────────── */
+.lb1-watermark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(18rem, 32vw, 36rem);
+  letter-spacing: -0.04em;
+  color: var(--brand);
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+  opacity: 0;
+}
+#lb1.active .lb1-watermark {
+  animation: lb1WmIn 1.6s cubic-bezier(0.2, 0.9, 0.3, 1) 0.1s forwards,
+             lb1WmDrift 18s ease-in-out 1.7s infinite;
+}
+@keyframes lb1WmIn {
+  0%   { opacity: 0; transform: scale(1.18); letter-spacing: 0.06em; }
+  100% { opacity: 0.045; transform: scale(1); letter-spacing: -0.04em; }
+}
+@keyframes lb1WmDrift {
+  0%, 100% { transform: scale(1) translateX(0); }
+  50%      { transform: scale(1.04) translateX(-1.2%); }
+}
+
+/* ── vertical edge label on the left rail ────────────────────── */
+.lb1-vlabel {
+  position: absolute;
+  left: 56px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+  z-index: 2;
+  opacity: 0;
+  opacity: 0;
+}
+#lb1.active .lb1-vlabel {
+  animation: lb1VlabelIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) 0.6s forwards;
+}
+@keyframes lb1VlabelIn {
+  to { opacity: 0.85; }
+}
+
+/* ── chapter header bar ──────────────────────────────────────── */
+.lb1-chapter {
+  position: absolute;
+  top: clamp(48px, 7vh, 90px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  z-index: 2;
+  white-space: nowrap;
+}
+.lb1-chapter-rule {
+  display: block;
+  height: 1px;
+  background: var(--ink-3);
+  opacity: 0.5;
+  width: 0;
+  animation: lb1RuleDraw 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) 0.35s forwards;
+}
+.lb1-chapter-rule-l { animation-delay: 0.35s; }
+.lb1-chapter-rule-r { animation-delay: 0.45s; }
+@keyframes lb1RuleDraw { to { width: clamp(40px, 6vw, 80px); } }
+
+.lb1-chapter-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.5rem;
+  letter-spacing: 0;
+  color: var(--brand);
+  opacity: 0;
+  transform: translateY(8px);
+}
+#lb1.active .lb1-chapter-num {
+  animation: lb1FadeUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) 0.5s forwards;
+}
+.lb1-chapter-of {
+  font-size: 0.6rem;
+  opacity: 0;
+}
+#lb1.active .lb1-chapter-of {
+  animation: lb1FadeUp 0.5s ease 0.55s forwards;
+}
+.lb1-chapter-title {
+  opacity: 0;
+}
+#lb1.active .lb1-chapter-title {
+  animation: lb1FadeUp 0.5s ease 0.6s forwards;
+}
+@keyframes lb1FadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── main two-column grid ────────────────────────────────────── */
+.lb1-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) minmax(320px, 540px);
+  gap: clamp(40px, 6vw, 90px);
+  align-items: center;
+  justify-content: center;
+  width: min(1100px, 88vw);
+  margin: 0 auto;
+  padding-top: clamp(48px, 8vh, 100px);
+  padding-bottom: clamp(32px, 5vh, 72px);
+  height: auto;
+  box-sizing: border-box;
+}
+
+/* ── LEFT: portrait card + seal ──────────────────────────────── */
+.lb1-portrait {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.lb1-portrait-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: min(430px, 55vh);
+  background: #f5f5f0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+}
+#lb1.active .lb1-portrait-frame {
+  animation: lb1PortraitRise 1.0s cubic-bezier(0.2, 0.9, 0.3, 1) 0.7s forwards;
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.04),
+    0 30px 60px -30px rgba(0,0,0,0.25);
+}
+@keyframes lb1PortraitRise {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.lb1-portrait-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: 50% 28%;
+  filter: grayscale(0.5) contrast(1.05) brightness(0.98);
+  transform: scale(1.04);
+  animation: lb1PortraitZoomNew 14s ease-in-out 0.9s infinite alternate;
+}
+@keyframes lb1PortraitZoomNew {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.12); }
+}
+/* documentary scanline overlay */
+.lb1-portrait-scan {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.04) 0,
+      rgba(0,0,0,0.04) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+  pointer-events: none;
+}
+/* corner brackets on the portrait frame — brand-blue */
+.lb1-portrait-corner {
+  position: absolute;
+  width: 22px; height: 22px;
+  border: 2px solid var(--brand);
+  z-index: 2;
+  opacity: 0;
+}
+#lb1.active .lb1-portrait-corner {
+  animation: lb1CornerIn 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) 1.4s forwards;
+}
+.lb1-pc-tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.lb1-pc-tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; animation-delay: 1.45s; }
+.lb1-pc-bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; animation-delay: 1.5s; }
+.lb1-pc-br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; animation-delay: 1.55s; }
+@keyframes lb1CornerIn { to { opacity: 1; } }
+
+.lb1-portrait-cap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  opacity: 0;
+}
+#lb1.active .lb1-portrait-cap {
+  animation: lb1FadeUp 0.5s ease 1.6s forwards;
+}
+.lb1-portrait-cap-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 0 rgba(47,110,220,0.45);
+  animation: lb1DotPulse 1.6s ease-in-out infinite;
+}
+@keyframes lb1DotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(47,110,220,0.45); }
+  60%      { box-shadow: 0 0 0 8px rgba(47,110,220,0); }
+}
+
+/* rotating seal beneath the portrait */
+.lb1-seal {
+  position: absolute;
+  bottom: -56px;
+  right: -56px;
+  width: clamp(120px, 14vw, 170px);
+  aspect-ratio: 1;
+  opacity: 0;
+}
+#lb1.active .lb1-seal {
+  animation: lb1SealIn 0.7s cubic-bezier(0.34, 1.3, 0.64, 1) 1.7s forwards;
+  z-index: 3;
+}
+.lb1-seal svg {
+  width: 100%; height: 100%;
+  transform-origin: center;
+}
+#lb1.active .lb1-seal svg {
+  animation: lb1SealSpin 28s linear 1.7s infinite;
+}
+@keyframes lb1SealIn {
+  0%   { opacity: 0; transform: scale(0.4) rotate(-40deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes lb1SealSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── RIGHT: kicker, name, rule, tags, numbered creds ─────────── */
+.lb1-dossier {
+  position: relative;
+}
+.lb1-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 1.1rem;
+  opacity: 0;
+  transform: translateY(8px);
+}
+#lb1.active .lb1-kicker {
+  animation: lb1FadeUp 0.6s ease 0.6s forwards;
+}
+.lb1-kicker-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--brand);
+}
+
+.lb1-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  display: flex;
+  flex-direction: column;
+}
+.lb1-name-first {
+  font-style: normal;
+  font-size: clamp(2.2rem, 4.4vw, 3.2rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  opacity: 0;
+  transform: translateY(14px);
+}
+#lb1.active .lb1-name-first {
+  animation: lb1FadeUp 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) 1.4s forwards;
+}
+.lb1-name-last {
+  position: relative;
+  font-style: italic;
+  font-size: clamp(5rem, 10vw, 8.4rem);
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: -0.05em;
+  opacity: 0;
+  transform: translateY(20px);
+}
+#lb1.active .lb1-name-last {
+  animation: lb1FadeUp 0.95s cubic-bezier(0.2, 0.9, 0.3, 1) 2.0s forwards;
+}
+.lb1-name-tm {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.22em;
+  vertical-align: super;
+  color: var(--brand);
+  margin-left: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* hairline rule that draws in under the name */
+.lb1-name-rule {
+  height: 1px;
+  background: var(--brand);
+  width: 0;
+  margin: 1.2rem 0 1.1rem;
+  box-shadow: 0 0 12px rgba(47,110,220,0.35);
+}
+#lb1.active .lb1-name-rule {
+  animation: lb1NameRule 0.8s cubic-bezier(0.5, 0, 0.2, 1) 3.0s forwards;
+}
+@keyframes lb1NameRule {
+  0%   { width: 0; }
+  100% { width: 64%; }
+}
+
+.lb1-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  opacity: 0;
+  margin-bottom: 1.8rem;
+}
+#lb1.active .lb1-tags {
+  animation: lb1FadeUp 0.6s ease 3.8s forwards;
+}
+.lb1-tags-sep { color: var(--brand); opacity: 0.7; }
+
+.lb1-creds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+}
+.lb1-creds li {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--ink-2);
+  opacity: 0;
+  transform: translateY(8px);
+}
+#lb1.active .lb1-creds li {
+  animation: lb1FadeUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+.lb1-creds li:nth-child(1) { animation-delay: 4.6s; }
+.lb1-creds li:nth-child(2) { animation-delay: 5.2s; }
+.lb1-creds li:nth-child(3) { animation-delay: 5.8s; }
+.lb1-creds li:nth-child(4) { animation-delay: 6.4s; }
+.lb1-creds-n {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--brand);
+  font-weight: 500;
+}
+.lb1-creds-t em { font-style: italic; color: var(--ink); }
