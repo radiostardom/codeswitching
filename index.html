@@ -5972,10 +5972,15 @@
       const cont = document.getElementById('punchCont'); // Continue button
       drop.classList.remove('in');
       cont.classList.remove('in');
+      const _punchEpoch = window._resetEpoch || 0;
       setTimeout(() => {
+        if (currentPhase !== 2) return;
+        if ((window._resetEpoch || 0) !== _punchEpoch) return;
         drop.classList.add('in'); // show punchline after 2.2s
       }, 2200);
       setTimeout(() => {
+        if (currentPhase !== 2) return;
+        if ((window._resetEpoch || 0) !== _punchEpoch) return;
         cont.classList.add('in'); // show button after 4.5s
       }, 4500);
     }
@@ -6177,11 +6182,24 @@
         { at: 28000, from: 2, to: 3 }, // → pivot (12s on the scripture)
       ];
 
-      // After pivot has shown for 10s, auto-advance to the punchline
-      loreTimeouts.push(setTimeout(() => goPhase(2), 38000));
+      // After pivot has shown for 10s, auto-advance to the punchline.
+      // Guard: only advance if the user is STILL on phase 1 when the timeout fires.
+      // Without this, a delayed timeout can yank the user to phase 2 from anywhere
+      // in the flow (or after restart). The reset-epoch check makes this bulletproof
+      // even if loreTimeouts somehow got out of sync.
+      const _loreEpoch = window._resetEpoch || 0;
+      loreTimeouts.push(setTimeout(() => {
+        if (currentPhase !== 1) return;
+        if ((window._resetEpoch || 0) !== _loreEpoch) return;
+        goPhase(2);
+      }, 38000));
 
       beats.forEach(({ at, from, to }) => {
-        loreTimeouts.push(setTimeout(() => loreBeat(from, to), at));
+        loreTimeouts.push(setTimeout(() => {
+          if (currentPhase !== 1) return;
+          if ((window._resetEpoch || 0) !== _loreEpoch) return;
+          loreBeat(from, to);
+        }, at));
       });
     }
 
@@ -8273,6 +8291,7 @@
 
     // one-shot stinger player (independent of bgMusic so it can layer over the fadeout)
     function playStinger(src, vol = 0.8) {
+      if (audioMuted) return;
       try {
         const s = new Audio(src);
         s.volume = vol;
@@ -8336,6 +8355,8 @@
       audioMuted = !audioMuted;
       audioToggleEl.classList.toggle('muted', audioMuted);
       if (masterGain) masterGain.gain.linearRampToValueAtTime(audioMuted ? 0 : 1, audioCtx.currentTime + 0.2);
+      // also mute the bgMusic mp3 element (Web Audio mute alone doesn't cover this)
+      if (_bgm) _bgm.muted = audioMuted;
     }
 
     // ── Soft UI click (friendly, corporate) ──
