@@ -319,22 +319,26 @@
       align-items: center;
       justify-content: center;
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
       z-index: 2;
-      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.7s;
       transform: translateY(16px);
     }
 
     .phase.active {
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
-      transform: translateY(0)
+      transform: translateY(0);
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
     }
 
     .phase.exiting {
       opacity: 0;
       transform: translateY(-16px);
-      pointer-events: none
+      pointer-events: none;
+      visibility: visible;
     }
 
     /* ═══ Corner controls ═══ */
@@ -8090,6 +8094,16 @@
           p.classList.remove('exiting');
         }
       });
+
+      // ── kill scan particle FX + canvas explicitly (don't rely on observer) ──
+      try { setScanFxActive(false); } catch (e) {}
+
+      // ── clear final-splash color classes so a stale red/green doesn't bleed through ──
+      const splash = document.getElementById('finalSplash');
+      if (splash) splash.classList.remove('cleared', 'cutoff');
+
+      // ── deactivate every lore beat so nothing's still faded in behind welcome ──
+      document.querySelectorAll('.lore-wrap.active').forEach(el => el.classList.remove('active'));
 
       // Stop any running evaluation
       evalActive = false;
