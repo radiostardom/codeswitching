@@ -4847,7 +4847,7 @@
         </div>
       </div>
 
-      <button class="btn-primary" onclick="goPhase(4)">Sounds Great, I'm Ready</button>
+      <button class="btn-primary" onclick="bgMusicCrossfade('uploads/nastelbom-corporate-soft-488321.mp3', 0.35, 1800); goPhase(4)">Sounds Great, I'm Ready</button>
 
       <div class="intro-certs">
         <div class="cert">
@@ -6350,6 +6350,8 @@
     // Start button — kicks off the experience from the welcome screen
     document.getElementById('startBtn').addEventListener('click', function (e) {
       e.stopPropagation(); // prevent the click from bubbling up and triggering other handlers
+      playStinger('uploads/introbutton.mp3', 0.75); // entry chime
+      bgMusicFadeIn(0.35, 3500); // low-level ambient creep during lore
       goPhase(1);
     });
 
@@ -6927,7 +6929,7 @@
       }
 
       // Run a synthetic 10-second timer then advance with randomised scores
-      bgMusicFadeIn();
+      bgMusicCrossfade('uploads/absolutesound-corporate-music-2-522788.mp3', 0.35, 1800);
       statusDot.className = 'sd sc';
       statusText.textContent = 'Scanning';
       timerLabel.classList.remove('hidden');
@@ -6969,7 +6971,7 @@
 
     // Called once the camera is live — starts data collection and timer
     function beginEval() {
-      bgMusicFadeIn();
+      bgMusicCrossfade('uploads/absolutesound-corporate-music-2-522788.mp3', 0.35, 1800);
       evalActive = true;
       evalStartTime = performance.now();
       window._ds = undefined; // smoothed score display (resets each eval)
@@ -7388,7 +7390,6 @@
     //  Populates the detailed results panel with the final data.
     // ═══════════════════════════════════════
     function populateResults() {
-      bgMusicFadeOut(4000);
       const f = finalResults;
       if (!f) return;
 
@@ -7771,6 +7772,10 @@
         btn.textContent = 'Printing...';
       }
 
+      // snapshot the reset epoch — if a fullReset happens while we're awaiting,
+      // we bail out instead of yanking the user out of the welcome screen.
+      const _epoch = window._resetEpoch || 0;
+
       try {
         if (typeof html2canvas === 'undefined') {
           throw new Error('html2canvas not loaded');
@@ -7781,11 +7786,16 @@
         const imageData = await captureReceiptImage(receiptEl);
         await postPrintRequest(imageData);
 
+        // if a reset happened while we were awaiting, abandon the advance
+        if ((window._resetEpoch || 0) !== _epoch) return;
+
         // Print succeeded — advance to phase 8 (the on-screen receipt page)
         // as confirmation, then continue on user input
         if (btn) btn.textContent = 'Printed ✓';
         goPhase(8);
       } catch (e) {
+        // if a reset happened while we were awaiting, abandon the fallback too
+        if ((window._resetEpoch || 0) !== _epoch) return;
         // Printer offline / server down / html2canvas missing — fall back to virtual
         console.warn('Print failed, falling back to virtual receipt:', e.message || e);
         if (btn) {
@@ -7816,6 +7826,9 @@
 
       splash.classList.remove('cleared', 'cutoff');
       splash.classList.add(cleared ? 'cleared' : 'cutoff');
+
+      // verdict stinger — fires alongside the music fadeout for max gameshow energy
+      playStinger(cleared ? 'uploads/win.mp3' : 'uploads/fail.mp3', 0.75);
 
       if (cleared) {
         headline.textContent = 'Welcome to the company';
@@ -8053,6 +8066,31 @@
     // ═══════════════════════════════════════
     function fullReset() {
       bgMusicStop();
+      // restore audio src to the lore track so a fresh playthrough starts in the right place
+      if (_bgm) {
+        _bgm.src = 'uploads/eliveta-corporate-corporate-background-491215.mp3';
+      }
+
+      // ── nuke any stuck overlays or transition chrome that could swallow clicks ──
+      const tcOverlay = document.getElementById('tcOverlay');
+      if (tcOverlay) tcOverlay.classList.remove('show');
+      if (typeof interstitialEl !== 'undefined' && interstitialEl) {
+        interstitialEl.classList.remove('show');
+      }
+      const phaseWipe = document.getElementById('phaseWipe');
+      if (phaseWipe) phaseWipe.classList.remove('wiping');
+      const smileTransition = document.getElementById('smileTransition');
+      if (smileTransition) smileTransition.classList.remove('activating');
+
+      // ── force every phase out of active/exiting state so nothing weird overlaps ──
+      // (the goPhase doTransition will re-add .active to phase 0 after this returns)
+      phases.forEach(p => {
+        if (p) {
+          p.classList.remove('active');
+          p.classList.remove('exiting');
+        }
+      });
+
       // Stop any running evaluation
       evalActive = false;
       clearLoopTimer();
@@ -8132,6 +8170,10 @@
       capturedPhoto = null;
       finalResults = null;
       assessmentText = null;
+
+      // bump the reset epoch — any in-flight async task (like a hung print fetch)
+      // can check this before calling goPhase and bail if a reset has happened.
+      window._resetEpoch = (window._resetEpoch || 0) + 1;
     }
 
 
@@ -8144,6 +8186,8 @@
 
     function bgMusicFadeIn(targetVol = 0.55, durationMs = 2000) {
       if (!_bgm) return;
+      // if already playing, just keep going — don't restart the track
+      if (!_bgm.paused && _bgm.currentTime > 0) return;
       clearInterval(_bgmFadeTimer);
       _bgm.volume = 0;
       _bgm.currentTime = 0;
@@ -8173,12 +8217,53 @@
       }, stepMs);
     }
 
+    // crossfade to a new track: fade current down, swap src, fade new up
+    function bgMusicCrossfade(newSrc, targetVol = 0.35, fadeMs = 1500) {
+      if (!_bgm) return;
+      clearInterval(_bgmFadeTimer);
+      const wasPlaying = !_bgm.paused;
+      const startVol = wasPlaying ? _bgm.volume : 0;
+      const steps = 30;
+      const stepMs = fadeMs / steps;
+      let i = 0;
+      // fade out current
+      const fadeDown = setInterval(() => {
+        i++;
+        _bgm.volume = Math.max(startVol * (1 - i / steps), 0);
+        if (i >= steps) {
+          clearInterval(fadeDown);
+          // swap source
+          _bgm.pause();
+          _bgm.src = newSrc;
+          _bgm.currentTime = 0;
+          _bgm.volume = 0;
+          _bgm.play().catch(() => {});
+          // fade in new
+          let j = 0;
+          _bgmFadeTimer = setInterval(() => {
+            j++;
+            _bgm.volume = Math.min(targetVol * (j / steps), targetVol);
+            if (j >= steps) clearInterval(_bgmFadeTimer);
+          }, stepMs);
+        }
+      }, stepMs);
+    }
+
     function bgMusicStop() {
       if (!_bgm) return;
       clearInterval(_bgmFadeTimer);
       _bgm.pause();
       _bgm.volume = 0;
       _bgm.currentTime = 0;
+    }
+
+    // one-shot stinger player (independent of bgMusic so it can layer over the fadeout)
+    function playStinger(src, vol = 0.8) {
+      try {
+        const s = new Audio(src);
+        s.volume = vol;
+        s.play().catch(() => {});
+      } catch (e) { /* ignore */ }
     }
 
     // ═══════════════════════════════════════
@@ -8295,26 +8380,8 @@
 
     // ── Camera shutter (screenshot moment) ──
     function playShutter() {
-      if (!audioCtx || audioMuted) return;
-      // White noise burst = shutter click
-      const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.08, audioCtx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.15;
-      const src = audioCtx.createBufferSource();
-      src.buffer = buf;
-      const g = audioCtx.createGain();
-      g.gain.setValueAtTime(0.4, audioCtx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
-      // Bandpass for that mechanical click feel
-      const bp = audioCtx.createBiquadFilter();
-      bp.type = 'bandpass';
-      bp.frequency.value = 3000;
-      bp.Q.value = 1.5;
-      src.connect(bp);
-      bp.connect(g);
-      g.connect(masterGain);
-      src.start();
-      src.stop(audioCtx.currentTime + 0.08);
+      if (audioMuted) return;
+      playStinger('uploads/camerashutter.mp3', 0.6);
     }
 
     // ── Consent denial "boop" (friendly but firm) ──
