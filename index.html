@@ -8113,6 +8113,10 @@
         }
       });
 
+      // ── clear the cloned virtual receipt so a stale one doesn't ghost in ──
+      const virtualHost = document.getElementById('virtualRcptHost');
+      if (virtualHost) virtualHost.innerHTML = '';
+
       // ── kill scan particle FX + canvas explicitly (don't rely on observer) ──
       try { setScanFxActive(false); } catch (e) {}
 
